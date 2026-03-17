@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS300 · L01 Exam Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface2: #eef0f4;
+    --border: #d4d8e2;
+    --accent: #2a6dd9;
+    --accent2: #0e7fa8;
+    --accent3: #d63b3b;
+    --accent4: #7040c0;
+    --text: #2c303a;
+    --text-dim: #6b7385;
+    --text-bright: #111318;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 0 0 80px 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 60px 28px;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+  header .sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+  }
+  header .pill {
+    margin-left: auto;
+    background: var(--accent3);
+    color: #0d0f14;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-family: var(--mono);
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 40px 0;
+  }
+
+  /* ── SECTION ── */
+  section {
+    margin-bottom: 52px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-label .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .section-label h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-bright);
+    letter-spacing: 0.03em;
+  }
+  .section-label .tag {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+  .tag.high { border-color: var(--accent3); color: var(--accent3); }
+  .tag.med  { border-color: var(--accent2); color: var(--accent2); }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .cards.single { grid-template-columns: 1fr; }
+  .cards.thirds { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 22px;
+  }
+  .card.accent-left { border-left: 3px solid var(--accent); }
+  .card.accent-red  { border-left: 3px solid var(--accent3); }
+  .card.accent-blue { border-left: 3px solid var(--accent2); }
+  .card.accent-purple { border-left: 3px solid var(--accent4); }
+
+  .card h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-family: var(--mono);
+  }
+  .card.accent-red h3  { color: var(--accent3); }
+  .card.accent-blue h3 { color: var(--accent2); }
+  .card.accent-purple h3 { color: var(--accent4); }
+
+  .card p, .card li { font-size: 14px; color: var(--text); line-height: 1.65; }
+  .card ul { padding-left: 16px; }
+  .card ul li { margin-bottom: 5px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: #edf0f7;
+    color: #1a4fa8;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: #f0f2f7;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 16px 18px;
+    margin: 14px 0;
+    overflow-x: auto;
+    line-height: 1.7;
+    color: #2c303a;
+  }
+  pre .c  { color: #8a94a8; font-style: italic; } /* comment */
+  pre .k  { color: var(--accent4); }              /* keyword */
+  pre .t  { color: var(--accent2); }              /* type */
+  pre .s  { color: #b05a10; }                     /* string/literal */
+  pre .fn { color: var(--accent); }               /* function */
+  pre .w  { color: var(--accent3); }              /* warning/important */
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 5px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .alert.warn  { background: #fdf0f0; border: 1px solid #f0b0b0; color: #8b1a1a; }
+  .alert.info  { background: #eef6fb; border: 1px solid #90cce0; color: #0b4f6c; }
+  .alert.tip   { background: #f0f9ee; border: 1px solid #90c880; color: #254d1a; }
+
+  /* ── TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin: 14px 0;
+    font-family: var(--mono);
+  }
+  th {
+    background: var(--surface2);
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
+  td.hi { color: var(--accent); font-weight: 700; }
+  td.re { color: var(--accent3); }
+  td.bl { color: var(--accent2); }
+
+  /* ── DIVIDER ── */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 44px 0;
+  }
+
+  /* ── INLINE HIGHLIGHT ── */
+  mark {
+    background: #ddeaff;
+    color: #1a3d8a;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+  .red { color: var(--accent3); font-weight: 600; }
+  .blue { color: var(--accent2); }
+  .purple { color: var(--accent4); }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+  }
+  .toc h2 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+  .toc ol { padding-left: 18px; }
+  .toc li { font-size: 13.5px; margin-bottom: 6px; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+
+  /* ── KEY FACT ── */
+  .keyfact {
+    background: #edf3ff;
+    border: 1px solid #a8c0f0;
+    border-radius: 5px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 13.5px;
+    color: #1a3d8a;
+    font-family: var(--mono);
+  }
+
+  /* ── MEMORY MAP ── */
+  .memmap {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: #f0f2f7;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 14px 0;
+  }
+  .memmap .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 3px 0;
+  }
+  .memmap .addr { color: var(--text-dim); width: 110px; text-align: right; font-size: 11px; }
+  .memmap .seg  { padding: 5px 16px; border-radius: 3px; font-size: 12px; min-width: 140px; text-align: center; }
+  .seg-text     { background: #ece5f8; color: #5a20a0; border: 1px solid #c4a8e8; }
+  .seg-data     { background: #e0f0fa; color: #0b5a80; border: 1px solid #90cce0; }
+  .seg-heap     { background: #e6f4e0; color: #1e5e14; border: 1px solid #90c880; }
+  .seg-stack    { background: #fde8e8; color: #8b1a1a; border: 1px solid #f0a0a0; }
+  .memmap .note { color: var(--text-dim); font-size: 11px; }
+  .memmap .gap  { margin: 8px 0; color: var(--text-dim); font-size: 11px; text-align: center; }
+
+  @media (max-width: 720px) {
+    header { padding: 24px 20px; flex-wrap: wrap; }
+    .container { padding: 32px 20px 0; }
+    .cards, .cards.thirds { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>CS300 / CSCI 0300 &nbsp;·&nbsp; Lecture 01</h1>
+    <div class="sub">Fundamentals of Computer Systems &nbsp;·&nbsp; Exam Study Notes &nbsp;·&nbsp; L01–L07</div>
+  </div>
+  <div class="pill">⚠ exam focus</div>
+</header>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s1">Memory Model &amp; Addressing</a></li>
+      <li><a href="#s2">Number Systems: Binary &amp; Hex</a></li>
+      <li><a href="#s3">Data Types &amp; Sizes</a></li>
+      <li><a href="#s4">Pointers in C</a></li>
+      <li><a href="#s5">Variable Lifetimes &amp; Memory Segments</a></li>
+      <li><a href="#s6">Strings &amp; the NUL Terminator</a></li>
+      <li><a href="#s7">Programs as Bytes</a></li>
+      <li><a href="#s9">Uninitialized Memory</a></li>
+      <li><a href="#s10">Arrays &amp; Pointer Arithmetic</a></li>
+      <li><a href="#s11">Structs, sizeof &amp; typedef</a></li>
+      <li><a href="#s12">Alignment &amp; Collection Rules</a></li>
+      <li><a href="#s13">Signed Numbers &amp; Two's Complement</a></li>
+      <li><a href="#s14">Caching &amp; Storage Hierarchy</a></li>
+      <li><a href="#s15">File I/O &amp; File Descriptors</a></li>
+      <li><a href="#s16">Assembly Language &amp; Registers</a></li>
+      <li><a href="#s17">Control Flow &amp; Flags</a></li>
+      <li><a href="#s18">Calling Convention &amp; The Stack</a></li>
+      <li><a href="#s8">High-Yield Traps &amp; Edge Cases</a></li>
+      <li><a href="#p1">Project 1: Snake</a></li>
+      <li><a href="#p2">Project 2: DMalloc</a></li>
+      <li><a href="#p3">Project 3: File I/O Cache</a></li>
+      <li><a href="#eq">Past Exam Question Patterns</a></li>
+    </ol>
+  </div>
+
+  <!-- ─── SECTION 1: Memory ─── -->
+  <section id="s1">
+    <div class="section-label">
+      <span class="num">01</span>
+      <h2>Memory Model &amp; Addressing</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>The Mailbox Model</h3>
+        <ul>
+          <li>Memory = array of <mark>byte-sized boxes</mark>; each stores exactly <strong>one byte</strong> (0–255)</li>
+          <li>Each box has a unique <strong>address</strong> — a number from <code>0</code> to <code>M−1</code></li>
+          <li>On an 8 GB machine: M = 8 × 2<sup>30</sup> = 2<sup>33</sup> addresses</li>
+          <li>On a 16 GB machine: M = 16 × 2<sup>30</sup> = 2<sup>34</sup> addresses</li>
+        </ul>
+      </div>
+      <div class="card accent-blue">
+        <h3>Why Addresses Need 8 Bytes</h3>
+        <ul>
+          <li>4 bytes → max value ≈ 4 billion → <span class="red">insufficient</span> for &gt;4 GB RAM</li>
+          <li>This limitation <span class="red">actually hit</span> in mid-2000s as RAM exceeded 4 GB</li>
+          <li>Modern CPUs use <mark>8 bytes per address</mark> (supports quintillions)</li>
+          <li>Hardware grows address size in powers of two → jumped directly from 4 to 8</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ</span>
+      <span><strong>Gibibyte vs Gigabyte:</strong> 1 GiB = 2<sup>30</sup> bytes ≈ 1.07 × 10<sup>9</sup> bytes. 1 GB (SI) = exactly 10<sup>9</sup> bytes. The "-bi-" suffix (kibi, mebi, gibi) signals base-2. Exams may test whether you know 2<sup>30</sup> ≠ 10<sup>9</sup>.</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2: Number Systems ─── -->
+  <section id="s2">
+    <div class="section-label">
+      <span class="num">02</span>
+      <h2>Number Systems: Binary &amp; Hexadecimal</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Positional Notation</h3>
+        <p>In any base <em>b</em>, digit at position <em>i</em> (from right, 0-indexed) contributes <code>digit × b<sup>i</sup></code>.</p>
+        <pre>Binary:  101<sub>2</sub>  = 1×2² + 0×2¹ + 1×2⁰ = 5<sub>10</sub>
+Hex:     8D<sub>16</sub>  = 8×16¹ + 13×16⁰ = 141<sub>10</sub>
+                       ^D = 13</pre>
+      </div>
+      <div class="card accent-blue">
+        <h3>Hex ↔ Binary Shortcut</h3>
+        <p><mark>Exactly 4 binary digits = 1 hex digit</mark> (because 2<sup>4</sup> = 16). This lets you convert without going through decimal:</p>
+        <pre>1001 1101 0010<sub>2</sub>
+ 9    D    2      → 9D2<sub>16</sub></pre>
+        <p style="font-size:13px;margin-top:8px;">This is why hex is preferred: every byte = exactly 2 hex digits.</p>
+      </div>
+    </div>
+
+    <div class="cards thirds" style="margin-top:14px;">
+      <div class="card">
+        <h3>Hex Digits A–F</h3>
+        <table>
+          <tr><th>Hex</th><th>Dec</th><th>Binary</th></tr>
+          <tr><td class="hi">A</td><td>10</td><td>1010</td></tr>
+          <tr><td class="hi">B</td><td>11</td><td>1011</td></tr>
+          <tr><td class="hi">C</td><td>12</td><td>1100</td></tr>
+          <tr><td class="hi">D</td><td>13</td><td>1101</td></tr>
+          <tr><td class="hi">E</td><td>14</td><td>1110</td></tr>
+          <tr><td class="hi">F</td><td>15</td><td>1111</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Powers of 2</h3>
+        <table>
+          <tr><th>2<sup>n</sup></th><th>Value</th></tr>
+          <tr><td>2<sup>8</sup></td><td>256</td></tr>
+          <tr><td>2<sup>10</sup></td><td>1,024 ≈ 10<sup>3</sup></td></tr>
+          <tr><td>2<sup>16</sup></td><td>65,536</td></tr>
+          <tr><td>2<sup>20</sup></td><td>≈ 10<sup>6</sup></td></tr>
+          <tr><td>2<sup>30</sup></td><td>≈ 10<sup>9</sup> (1 GiB)</td></tr>
+          <tr><td>2<sup>32</sup></td><td>≈ 4 × 10<sup>9</sup></td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>C Notation</h3>
+        <table>
+          <tr><th>Base</th><th>Prefix</th><th>Example</th></tr>
+          <tr><td>Hex</td><td class="hi"><code>0x</code></td><td><code>0xFF</code></td></tr>
+          <tr><td>Octal</td><td><code>0</code></td><td><code>017</code></td></tr>
+          <tr><td>Decimal</td><td>none</td><td><code>255</code></td></tr>
+          <tr><td>Binary</td><td class="re">none in C</td><td>—</td></tr>
+        </table>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)">C has no binary literal syntax. <code>0b</code> is a GCC extension only.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3: Types & Sizes ─── -->
+  <section id="s3">
+    <div class="section-label">
+      <span class="num">03</span>
+      <h2>Data Types &amp; Sizes</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <table>
+      <tr>
+        <th>C Type</th>
+        <th>Size (bytes)</th>
+        <th>Bits</th>
+        <th>Unsigned max</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td class="hi"><code>char</code></td>
+        <td>1</td>
+        <td>8</td>
+        <td>255 (2<sup>8</sup>−1)</td>
+        <td>One ASCII character; also used as raw byte</td>
+      </tr>
+      <tr>
+        <td class="bl"><code>short</code></td>
+        <td>2</td>
+        <td>16</td>
+        <td>65,535 (2<sup>16</sup>−1)</td>
+        <td>Two adjacent bytes</td>
+      </tr>
+      <tr>
+        <td class="bl"><code>int</code></td>
+        <td>4</td>
+        <td>32</td>
+        <td>≈ 4.29 × 10<sup>9</sup> (2<sup>32</sup>−1)</td>
+        <td>Four adjacent bytes</td>
+      </tr>
+      <tr>
+        <td class="hi"><code>long</code></td>
+        <td>8</td>
+        <td>64</td>
+        <td>≈ 1.84 × 10<sup>19</sup></td>
+        <td>Eight adjacent bytes (x86-64 Linux)</td>
+      </tr>
+      <tr>
+        <td class="re"><code>int*</code> / pointer</td>
+        <td><strong>8</strong></td>
+        <td>64</td>
+        <td>—</td>
+        <td>Always 8 bytes on 64-bit systems regardless of pointed-to type</td>
+      </tr>
+    </table>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Trap:</strong> <code>sizeof(int*)</code>, <code>sizeof(char*)</code>, <code>sizeof(long*)</code> are <em>all</em> 8 bytes on 64-bit systems. The type of what is pointed to does <em>not</em> affect pointer size.</span>
+    </div>
+
+    <div class="keyfact">
+      A byte stores values 0–255 because it has 8 bits → 2<sup>8</sup> = 256 distinct values (0 through 255).
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4: Pointers ─── -->
+  <section id="s4">
+    <div class="section-label">
+      <span class="num">04</span>
+      <h2>Pointers in C</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-purple">
+        <h3>Core Operators</h3>
+        <table>
+          <tr><th>Operator</th><th>Name</th><th>Meaning</th></tr>
+          <tr><td class="hi"><code>&amp;x</code></td><td>address-of</td><td>Returns the memory address of variable <code>x</code></td></tr>
+          <tr><td class="hi"><code>*p</code></td><td>dereference</td><td>Follows pointer <code>p</code> to access the value it points to</td></tr>
+        </table>
+        <p style="margin-top:10px;font-size:13.5px;">Key identity: <code>*(&amp;x) == x</code> — the operators are inverses.</p>
+      </div>
+      <div class="card accent-left">
+        <h3>Type Rules</h3>
+        <ul>
+          <li><code>int*</code> = "pointer to int" — occupies 8 bytes, points to 4 bytes</li>
+          <li><code>char*</code> = "pointer to char" — occupies 8 bytes, points to 1 byte</li>
+          <li><code>*(int*)</code> cancels to <code>int</code> — the star "cancels" the star in the type</li>
+          <li><code>void*</code> = untyped pointer (what <code>malloc</code> returns)</li>
+        </ul>
+      </div>
+    </div>
+
+    <pre><span class="k">void</span> <span class="fn">f</span>() {
+    <span class="t">int</span>  local = <span class="s">1</span>;
+    <span class="t">int*</span> ptr   = &amp;local;   <span class="c">// ptr holds the address of local (8 bytes)</span>
+
+    printf(<span class="s">"%d\n"</span>,  *ptr);  <span class="c">// dereferences ptr → prints 1</span>
+    printf(<span class="s">"%p\n"</span>, ptr);   <span class="c">// prints address itself (%p = pointer format)</span>
+    printf(<span class="s">"%p\n"</span>, &amp;local); <span class="c">// same address as ptr</span>
+
+    *ptr = <span class="s">42</span>;             <span class="c">// modifies local through the pointer</span>
+    printf(<span class="s">"%d\n"</span>, local); <span class="c">// → 42</span>
+}</pre>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Trap:</strong> <code>int* a, b;</code> declares <code>a</code> as <code>int*</code> but <code>b</code> as plain <code>int</code>, not <code>int*</code>. The asterisk binds to the variable name, not the type keyword. Prefer <code>int *a, *b;</code> to make this clear.</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 5: Lifetimes ─── -->
+  <section id="s5">
+    <div class="section-label">
+      <span class="num">05</span>
+      <h2>Variable Lifetimes &amp; Memory Segments</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <table>
+      <tr>
+        <th>Lifetime</th>
+        <th>Segment</th>
+        <th>Declaration</th>
+        <th>Approx. address (x86-64)</th>
+        <th>Grows</th>
+      </tr>
+      <tr>
+        <td class="purple">Static</td>
+        <td>Code / Text</td>
+        <td><code>const</code> global</td>
+        <td class="re"><code>~0x40'0000</code></td>
+        <td>Fixed</td>
+      </tr>
+      <tr>
+        <td class="purple">Static</td>
+        <td>Data / BSS</td>
+        <td>global variable</td>
+        <td class="re"><code>~0x60'0000</code></td>
+        <td>Fixed</td>
+      </tr>
+      <tr>
+        <td class="blue">Dynamic</td>
+        <td><strong>Heap</strong></td>
+        <td><code>malloc()</code> / <code>new</code></td>
+        <td class="bl"><code>~0x1a0'0000</code></td>
+        <td>↑ Upward</td>
+      </tr>
+      <tr>
+        <td class="hi">Automatic</td>
+        <td><strong>Stack</strong></td>
+        <td>local variable / fn arg</td>
+        <td class="hi"><code>~0x7fff'xxxx'xxxx</code></td>
+        <td>↓ Downward</td>
+      </tr>
+    </table>
+
+    <!-- Memory map diagram -->
+    <div class="memmap">
+      <div style="text-align:center;font-size:11px;color:var(--text-dim);margin-bottom:14px;">ADDRESS SPACE (low → high)</div>
+      <div class="row">
+        <span class="addr">~0x40'0000</span>
+        <span class="seg seg-text">Code / Text</span>
+        <span class="note">const globals, program instructions</span>
+      </div>
+      <div class="row">
+        <span class="addr">~0x60'0000</span>
+        <span class="seg seg-data">Data / BSS</span>
+        <span class="note">modifiable globals, zero-initialized globals</span>
+      </div>
+      <div class="gap">↕ &nbsp; unmapped / reserved &nbsp; ↕</div>
+      <div class="row">
+        <span class="addr">~0x1a0'0000</span>
+        <span class="seg seg-heap">Heap ↑</span>
+        <span class="note">malloc() / new — grows upward, can fragment</span>
+      </div>
+      <div class="gap">↕ &nbsp; free space (stack + heap grow toward each other) &nbsp; ↕</div>
+      <div class="row">
+        <span class="addr">~0x7fff…</span>
+        <span class="seg seg-stack">Stack ↓</span>
+        <span class="note">local vars, fn args — grows downward, no holes</span>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Stack vs Heap — Key Differences</h3>
+        <ul>
+          <li><strong>Stack:</strong> contiguous, no gaps. LIFO. Freed automatically when function returns.</li>
+          <li><strong>Heap:</strong> can have "holes" (fragmentation) when objects in the middle are freed.</li>
+          <li>Stack grows <span class="red">downward</span>; heap grows <span class="blue">upward</span> — they meet if you run out of memory.</li>
+          <li>Java's <code>new</code> → heap. Primitive types (<code>int</code>, <code>double</code>) in Java → stack.</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>malloc / free Rules</h3>
+        <ul>
+          <li><code>malloc(n)</code> returns <code>void*</code> — you must cast it</li>
+          <li>Returns address of the <em>first byte</em> of allocated block</li>
+          <li>You must call <code>free(ptr)</code> with the <em>original pointer</em></li>
+          <li><span class="red">Memory leak</span> = malloc without free</li>
+          <li><span class="red">Double free</span> = free the same pointer twice → undefined behavior</li>
+          <li><span class="red">Use-after-free</span> = accessing memory after free → undefined behavior</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Trap — object lifetime mismatch:</strong> Returning a pointer to a local variable is undefined behavior — the local's memory is reclaimed when the function returns. Only heap-allocated (dynamic lifetime) objects can safely outlive the function that creates them.</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 6: Strings ─── -->
+  <section id="s6">
+    <div class="section-label">
+      <span class="num">06</span>
+      <h2>Strings &amp; the NUL Terminator</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>C String Representation</h3>
+        <ul>
+          <li>A string is simply a <mark>sequence of <code>char</code> bytes</mark> in memory</li>
+          <li>Every string ends with a <mark>NUL byte: <code>\0</code> = <code>0x00</code></mark></li>
+          <li>A 12-character string occupies <span class="red">13 bytes</span> — the NUL counts!</li>
+          <li><code>char[]</code> vs <code>char*</code>: array stores chars; pointer stores an address</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>ASCII Key Facts</h3>
+        <ul>
+          <li>Original ASCII: 7 bits → 128 characters</li>
+          <li><code>'A'</code> = <code>65</code> = <code>0x41</code></li>
+          <li><code>'a'</code> = <code>97</code> = <code>0x61</code> (lowercase = uppercase + 32)</li>
+          <li><code>'0'</code> = <code>48</code> = <code>0x30</code> (digit char ≠ integer value)</li>
+          <li>NUL (<code>\0</code>) = <code>0</code>; separate from digit <code>'0'</code> = <code>48</code></li>
+          <li>Today: Unicode (1–4 bytes/char); backward-compatible with ASCII</li>
+        </ul>
+      </div>
+    </div>
+
+    <pre><span class="c">// "Hello" in memory — 6 bytes, not 5!</span>
+<span class="t">char</span> s[] = <span class="s">"Hello"</span>;
+<span class="c">// Address:  0  1  2  3  4  5</span>
+<span class="c">// Value:   'H''e''l''l''o''\0'</span>
+<span class="c">//           72 101 108 108 111  0</span>
+
+<span class="c">// Heap-allocated string — COMMON TRAPS:</span>
+<span class="t">char*</span> p = malloc(<span class="s">6</span>);       <span class="c">// need 6 bytes for "Hello" + NUL</span>
+*p = <span class="s">"Hello"</span>;              <span class="w">// WRONG — assigns a char from the address, not the string</span>
+p  = <span class="s">"Hello"</span>;              <span class="w">// WRONG — overwrites pointer; heap memory is lost (memory leak)</span>
+strcpy(p, <span class="s">"Hello"</span>);       <span class="c">// CORRECT way to copy a string into allocated memory</span></pre>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Segfault cause:</strong> Reading past a string's NUL byte accesses unowned memory. If you go far enough (e.g., 20,000 bytes) the OS terminates the program with <code>SIGSEGV</code> (segmentation fault) — it detected access outside a valid memory segment.</span>
+    </div>
+
+    <div class="keyfact">
+      Forgetting the NUL terminator is one of the most common bugs in C. When allocating space for a string of n characters, always allocate n+1 bytes.
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3><code>char*</code> vs <code>char[]</code> — Critical Distinction</h3>
+        <table>
+          <tr><th></th><th><code>char* s = "Sedan"</code></th><th><code>char s[] = "Sedan"</code></th></tr>
+          <tr><td>Data lives in</td><td class="re">Read-only .rodata</td><td class="hi">Stack (copied there)</td></tr>
+          <tr><td>Modifiable?</td><td class="re">NO — segfault</td><td class="hi">Yes</td></tr>
+          <tr><td>Variable size</td><td>8B (pointer to .rodata)</td><td>6B (actual chars + NUL)</td></tr>
+          <tr><td>Safe to return?</td><td class="hi">Yes — .rodata persists forever</td><td class="re">NO — stack frame dies on return</td></tr>
+        </table>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)">String literals go to .rodata for efficiency (string pooling — one copy shared), persistence (survives function return), and safety (OS enforces read-only). <code>char s[] = "hello"</code> uses .rodata as a template but copies the bytes onto the stack.</p>
+      </div>
+      <div class="card accent-red">
+        <h3>Pointer Array ≠ Contiguous String Data</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">When you have <code>char* strs[] = {s1, s2}</code>, the <em>pointers</em> are contiguous but the strings they point to are <span class="red">not</span>:</p>
+        <pre style="font-size:11.5px;margin:0;">Stack: strs[0](8B) | strs[1](8B)  ← pointers ARE adjacent
+              ↓              ↓
+Heap:  "cat\0"         "dog\0"    ← strings NOT adjacent
+       0x1a0050        0x1a0080   ← gap between them!
+
+s1[3] = ' ';  // removes NUL from "cat"
+printf("%s", strs[0]);
+// Prints "cat" then reads garbage — NOT "dog"
+// "dog" is not at s1+4!</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 7: Programs as Bytes ─── -->
+  <section id="s7">
+    <div class="section-label">
+      <span class="num">07</span>
+      <h2>Programs as Bytes</h2>
+      <span class="tag med">conceptual</span>
+    </div>
+
+    <div class="cards single">
+      <div class="card accent-purple">
+        <h3>Key Insight</h3>
+        <p>The CPU doesn't distinguish between "program bytes" and "data bytes" — it interprets whatever bytes are at the address it's told to execute. The <em>same</em> 4 bytes (<code>0x8d 0x04 0x37 0xc3</code>) can be found inside a JPEG image and executed as x86-64 machine code that adds two numbers.</p>
+        <ul style="margin-top:10px;">
+          <li>Machine code for a simple <code>add(a, b)</code> function compiles to just <strong>4 bytes</strong></li>
+          <li><code>lea (%rdi, %rsi, 1), %eax</code> = add the two arguments; <code>retq</code> = return</li>
+          <li>The meaning of bytes in memory depends entirely on <em>how the program chooses to interpret them</em></li>
+          <li><code>objdump -d file.o</code> disassembles: shows hex bytes on left, human-readable assembly on right</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-blue">
+        <h3>Compilation Pipeline</h3>
+        <ul>
+          <li><code>gcc -o add add.c addf.c</code> compiles both files separately into <code>.o</code> files, then links</li>
+          <li>A <strong>declaration</strong> = tells compiler a function/variable exists (no implementation)</li>
+          <li>A <strong>definition</strong> = provides the actual implementation/storage</li>
+          <li>You can use something that's declared but not yet defined — the linker resolves it later</li>
+        </ul>
+      </div>
+      <div class="card accent-left">
+        <h3>Interpretation Depends on Context</h3>
+        <ul>
+          <li>Same bytes = machine code <em>or</em> pixel data <em>or</em> an integer — depends on how you access them</li>
+          <li>The computer has no inherent notion of "type" — that's enforced by the program / compiler</li>
+          <li><code>const unsigned char add[] = {0x8d, 0x04, 0x37, 0xc3};</code> stores raw bytes; the CPU will execute them if told to jump there</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 9: Uninitialized Memory ─── -->
+  <section id="s9">
+    <div class="section-label">
+      <span class="num">09</span>
+      <h2>Uninitialized Memory</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-red">
+        <h3>What malloc() returns</h3>
+        <ul>
+          <li>Contents of freshly <code>malloc()</code>'d memory are <mark>completely undefined</mark> by the C standard</li>
+          <li>In practice: memory often retains <em>whatever bytes were there before</em> — old strings, passwords, etc.</li>
+          <li>This is a major <span class="red">security hole</span>: freed memory can be re-allocated to a different caller who then sees old secrets</li>
+          <li><code>calloc(n, size)</code> zero-initializes; <code>malloc()</code> does not</li>
+        </ul>
+      </div>
+      <div class="card accent-purple">
+        <h3>Secure Cleanup Pattern</h3>
+        <ul>
+          <li>Before calling <code>free()</code> on sensitive data, <strong>overwrite with zeros</strong> first</li>
+          <li>This is standard in cryptographic and password-handling code</li>
+          <li>Global/static variables in the <code>.bss</code> segment <em>are</em> zero-initialized by the OS at startup — local and heap variables are not</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Trap:</strong> Partially-initialized structs are dangerous. Members you didn't explicitly set may hold garbage. Use <code>memset(&s, 0, sizeof(s))</code> or a full initializer list to be safe.</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 10: Arrays & Pointer Arithmetic ─── -->
+  <section id="s10">
+    <div class="section-label">
+      <span class="num">10</span>
+      <h2>Arrays &amp; Pointer Arithmetic</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Array Fundamentals</h3>
+        <ul>
+          <li>All elements same type, same size, laid out <mark>consecutively in memory</mark></li>
+          <li>Array length is <span class="red">NOT stored</span> in memory — you must track it yourself</li>
+          <li>Array length is <strong>fixed</strong> at declaration; you cannot append</li>
+          <li><code>int a[5]</code> → 20 bytes on the stack (5 × 4)</li>
+          <li><code>sizeof(arr)</code> = total bytes (e.g., 12 for <code>int[3]</code>); but <code>sizeof(ptr)</code> = 8 always</li>
+        </ul>
+      </div>
+      <div class="card accent-blue">
+        <h3>Pointer Arithmetic Rules</h3>
+        <ul>
+          <li><code>ptr + 1</code> advances by <mark><code>sizeof(*ptr)</code> bytes</mark>, not 1 byte</li>
+          <li><code>(int*)p + 1</code> → address + 4 bytes</li>
+          <li><code>(char*)p + 1</code> → address + 1 byte</li>
+          <li><code>a[i]</code> is <em>exactly</em> <code>*((int*)a + i)</code> — subscript notation is syntactic sugar for pointer arithmetic</li>
+          <li><strong>First member rule:</strong> address of array = address of <code>a[0]</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <pre><span class="t">int</span> a[<span class="s">3</span>] = {<span class="s">10</span>, <span class="s">20</span>, <span class="s">30</span>};
+
+<span class="c">// These four are ALL equivalent:</span>
+a[<span class="s">1</span>]                 <span class="c">// = 20</span>
+*( a + <span class="s">1</span> )           <span class="c">// = 20  (a decays to int* pointer)</span>
+*((<span class="t">int*</span>)a + <span class="s">1</span>)       <span class="c">// = 20  (explicit cast)</span>
+<span class="s">1</span>[a]                 <span class="c">// = 20  (legal but cursed: i[a] == a[i] in C!)</span>
+
+<span class="c">// sizeof behavior — critical exam distinction:</span>
+<span class="fn">sizeof</span>(a)            <span class="c">// = 12  (whole array: 3 × 4 bytes)</span>
+<span class="t">int*</span> p = a;
+<span class="fn">sizeof</span>(p)            <span class="c">// = 8   (just a pointer — NOT the array size)</span></pre>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Trap — array decay:</strong> When you pass an array to a function, it <em>decays</em> to a pointer to its first element. Inside the function, <code>sizeof(arr)</code> gives 8 (pointer size), not the array size. Always pass the length separately.</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 11: Structs ─── -->
+  <section id="s11">
+    <div class="section-label">
+      <span class="num">11</span>
+      <h2>Structs, <code>sizeof</code> &amp; <code>typedef</code></h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Struct Access Syntax</h3>
+        <ul>
+          <li><code>s.member</code> — when <code>s</code> is a <strong>value</strong> (stack-allocated struct)</li>
+          <li><code>p->member</code> — when <code>p</code> is a <strong>pointer</strong> to a struct</li>
+          <li><code>p->member</code> is <em>identical</em> to <code>(*p).member</code> — arrow implicitly dereferences</li>
+          <li>Address of a struct = address of its <strong>first member</strong> (first member rule)</li>
+        </ul>
+      </div>
+      <div class="card accent-blue">
+        <h3>sizeof Traps</h3>
+        <ul>
+          <li><code>sizeof</code> is resolved <mark>entirely at compile time</mark> — zero runtime cost</li>
+          <li><code>sizeof(int*)</code> = 8 — not the size of what it points to</li>
+          <li><code>sizeof(arr)</code> = total bytes only when <code>arr</code> is an array type, not a pointer</li>
+          <li><code>sizeof(struct x_t)</code> ≥ sum of member sizes due to <span class="red">padding</span></li>
+          <li>Use <code>alignof(T)</code> to get alignment (same compile-time mechanism)</li>
+        </ul>
+      </div>
+    </div>
+
+    <pre><span class="c">// typedef removes the need to write "struct" everywhere</span>
+<span class="k">typedef</span> <span class="k">struct</span> {
+    <span class="t">int</span>  i1, i2, i3;
+    <span class="t">char</span> c1, c2, c3;
+} x_t;
+
+x_t s;              <span class="c">// no "struct" keyword needed</span>
+s.i1 = <span class="s">42</span>;
+
+<span class="t">x_t*</span> p = (<span class="t">x_t*</span>)<span class="fn">malloc</span>(<span class="fn">sizeof</span>(x_t));
+p->i1 = <span class="s">42</span>;        <span class="c">// arrow: pointer to struct</span>
+(*p).i1 = <span class="s">42</span>;      <span class="c">// identical, but uglier</span>
+
+<span class="c">// Linked list: must use "struct node*" not "node_t*" inside definition</span>
+<span class="k">typedef</span> <span class="k">struct</span> node {
+    <span class="t">int</span>         value;
+    <span class="k">struct</span> node* next;  <span class="c">// node_t* would be illegal here — not yet defined</span>
+} node_t;</pre>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Self-referential struct trap:</strong> You <em>cannot</em> embed a <code>node_t</code> inside itself (infinite size), but you <em>can</em> embed a <code>struct node*</code> pointer (always 8 bytes). The typedef name isn't available until after the closing <code>};</code>, which is why you need the raw <code>struct node*</code> syntax inside the definition.</span>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ</span>
+      <span><strong>Struct initializer shorthand:</strong> <code>struct x_t s = {1, 2, 3, 'A', 'B', 'C'};</code> fills in order. <code>struct x_t s2 = { .i2 = 42, .c3 = 'X' };</code> sets only named members — unset members get <em>zero</em> if the struct is global/static, garbage otherwise.</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 12: Alignment ─── -->
+  <section id="s12">
+    <div class="section-label">
+      <span class="num">12</span>
+      <h2>Alignment &amp; Collection Rules</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-purple">
+        <h3>Alignment Table (x86-64 Linux)</h3>
+        <table>
+          <tr><th>Type</th><th>Size</th><th>Alignment</th></tr>
+          <tr><td><code>char</code></td><td>1</td><td class="hi">1 (any address)</td></tr>
+          <tr><td><code>short</code></td><td>2</td><td>multiple of 2</td></tr>
+          <tr><td><code>int</code></td><td>4</td><td>multiple of 4</td></tr>
+          <tr><td><code>long</code></td><td>8</td><td>multiple of 8</td></tr>
+          <tr><td><code>float</code></td><td>4</td><td>multiple of 4</td></tr>
+          <tr><td><code>double</code></td><td>8</td><td>multiple of 8</td></tr>
+          <tr><td><code>T*</code></td><td>8</td><td class="re">multiple of 8</td></tr>
+        </table>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)">Max alignment on 64-bit = 16 bytes (<code>long double</code>). <code>malloc()</code> always returns 16-byte aligned pointer.</p>
+      </div>
+      <div class="card accent-left">
+        <h3>The Five Collection Rules</h3>
+        <ol style="padding-left:16px;font-size:14px;line-height:1.8;">
+          <li><strong>First member rule:</strong> address of collection = address of first member</li>
+          <li><strong>Array rule:</strong> elements laid out consecutively, no gaps</li>
+          <li><strong>Struct rule:</strong> members in declaration order, no overlap, minimum padding for alignment</li>
+          <li><strong>Minimum rule:</strong> memory used shall be minimum possible without breaking other rules</li>
+          <li><strong>malloc rule:</strong> <code>malloc()</code> returns pointer aligned for <em>any</em> type (≥16-byte aligned on x86-64)</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Struct padding diagram -->
+    <div style="margin-top:18px;">
+      <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;font-family:var(--mono);letter-spacing:0.05em;">STRUCT LAYOUT DIAGRAM — interleaved vs. grouped</p>
+      <div class="memmap">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px;">BAD ORDER: <code>int i1; char c1; int i2; char c2; int i3; char c3;</code> → <span style="color:var(--accent3)">24 bytes (9 bytes wasted)</span></div>
+        <div style="display:flex;gap:2px;align-items:stretch;margin-bottom:6px;">
+          <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:6px 10px;font-size:11px;min-width:52px;text-align:center;">i1<br><span style="color:var(--text-dim)">4B</span></div>
+          <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 6px;font-size:11px;min-width:20px;text-align:center;">c1<br><span style="color:var(--text-dim)">1B</span></div>
+          <div style="background:#f0f0f0;border:1px dashed #bbb;color:#aaa;padding:6px 10px;font-size:11px;min-width:36px;text-align:center;">PAD<br><span style="color:#bbb">3B</span></div>
+          <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:6px 10px;font-size:11px;min-width:52px;text-align:center;">i2<br><span style="color:var(--text-dim)">4B</span></div>
+          <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 6px;font-size:11px;min-width:20px;text-align:center;">c2<br><span style="color:var(--text-dim)">1B</span></div>
+          <div style="background:#f0f0f0;border:1px dashed #bbb;color:#aaa;padding:6px 10px;font-size:11px;min-width:36px;text-align:center;">PAD<br><span style="color:#bbb">3B</span></div>
+          <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:6px 10px;font-size:11px;min-width:52px;text-align:center;">i3<br><span style="color:var(--text-dim)">4B</span></div>
+          <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 6px;font-size:11px;min-width:20px;text-align:center;">c3<br><span style="color:var(--text-dim)">1B</span></div>
+          <div style="background:#f0f0f0;border:1px dashed #bbb;color:#aaa;padding:6px 10px;font-size:11px;min-width:36px;text-align:center;">PAD<br><span style="color:#bbb">3B</span></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:14px;margin-bottom:10px;">GOOD ORDER: <code>int i1; int i2; int i3; char c1; char c2; char c3;</code> → <span style="color:#1e6b14">16 bytes (1 byte wasted)</span></div>
+        <div style="display:flex;gap:2px;align-items:stretch;">
+          <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:6px 10px;font-size:11px;min-width:52px;text-align:center;">i1<br><span style="color:var(--text-dim)">4B</span></div>
+          <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:6px 10px;font-size:11px;min-width:52px;text-align:center;">i2<br><span style="color:var(--text-dim)">4B</span></div>
+          <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:6px 10px;font-size:11px;min-width:52px;text-align:center;">i3<br><span style="color:var(--text-dim)">4B</span></div>
+          <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 6px;font-size:11px;min-width:20px;text-align:center;">c1<br><span style="color:var(--text-dim)">1B</span></div>
+          <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 6px;font-size:11px;min-width:20px;text-align:center;">c2<br><span style="color:var(--text-dim)">1B</span></div>
+          <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 6px;font-size:11px;min-width:20px;text-align:center;">c3<br><span style="color:var(--text-dim)">1B</span></div>
+          <div style="background:#f0f0f0;border:1px dashed #bbb;color:#aaa;padding:6px 6px;font-size:11px;min-width:20px;text-align:center;">P<br><span style="color:#bbb">1B</span></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">↑ Trailing pad needed so that array of this struct keeps the next element's ints aligned at multiples of 4.</div>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Struct padding rules:</strong> Compiler inserts padding <em>before</em> a member if needed for alignment, and may add trailing padding after the last member so that an array of this struct keeps alignment for the next element. You <strong>cannot</strong> reorder struct members to save space — but you <em>can</em> reorder them yourself in source. Stack variables can be reordered by the optimizer; struct members cannot.</span>
+    </div>
+
+    <div class="keyfact">
+      Compute struct size: walk members in order, insert padding before each to satisfy its alignment, then add trailing padding to make total size a multiple of the <strong>largest member's alignment</strong> (not just the largest member's size — alignment = size for primitives). This trailing padding rule exists so arrays of the struct keep every element's members correctly aligned.
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-red">
+        <h3>Trailing Padding Trap — Changing <code>int*</code> to <code>int</code> Doesn't Shrink the Struct</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">A common exam question: if you replace an 8-byte pointer member with a 4-byte int, why is the struct still the same size?</p>
+        <pre style="font-size:12px;"><span class="k">struct</span> costume_info {
+    <span class="t">char</span>  name[17];      <span class="c">// ends at 17</span>
+    <span class="c">// 1B padding (align short to 2)</span>
+    <span class="t">short</span> contestantNum; <span class="c">// ends at 20</span>
+    <span class="t">int</span>   score;         <span class="c">// ends at 24</span>
+    <span class="t">long</span>  costume;       <span class="c">// ends at 32  ← largest alignment = 8</span>
+    <span class="t">int*</span>  studentId;     <span class="c">// ends at 40  ← total 40B ✓ (mult of 8)</span>
+};
+<span class="c">// Change int* → int: raw data ends at 36B</span>
+<span class="c">// 36 is NOT a multiple of 8 → compiler adds 4B trailing padding → still 40B!</span>
+<span class="c">// WHY? If you made an array of this struct, the 'long costume' in the</span>
+<span class="c">// second element must start at a multiple of 8. 36+4=40 ensures this.</span></pre>
+        <div class="alert info" style="margin-top:8px;font-size:12.5px;">
+          <span class="alert-icon">ℹ</span>
+          <span><strong>The rule:</strong> struct total size must be a multiple of its <em>largest member's alignment</em>. Even if you remove or shrink the largest member, the remaining largest member governs the trailing padding requirement.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 13: Two's Complement ─── -->
+  <section id="s13">
+    <div class="section-label">
+      <span class="num">13</span>
+      <h2>Signed Numbers &amp; Two's Complement</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-purple">
+        <h3>Two's Complement Formula</h3>
+        <ul>
+          <li>Negative representation: <mark>-x = ~x + 1</mark> (flip all bits, add 1)</li>
+          <li>Key property: -x + x = 0 (addition wraps mod 2<sup>N</sup>)</li>
+          <li>MSB (most significant bit) = <strong>sign bit</strong>: 1 → negative, 0 → non-negative</li>
+          <li>Same hardware circuits handle signed and unsigned addition</li>
+        </ul>
+        <table style="margin-top:10px;">
+          <tr><th>Value</th><th>8-bit two's complement</th></tr>
+          <tr><td class="hi">0</td><td><code>0x00</code> = 0000 0000</td></tr>
+          <tr><td class="hi">1</td><td><code>0x01</code> = 0000 0001</td></tr>
+          <tr><td class="hi">127 (max+)</td><td><code>0x7f</code> = 0111 1111</td></tr>
+          <tr><td class="re">-1</td><td><code>0xff</code> = 1111 1111</td></tr>
+          <tr><td class="re">-128 (min)</td><td><code>0x80</code> = 1000 0000</td></tr>
+        </table>
+      </div>
+      <div class="card accent-blue">
+        <h3>Converting Signed Hex → Decimal (3-Step Method)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">If the leading hex digit is <strong>8–F</strong>, the number is negative. Use flip+add-1:</p>
+        <pre style="font-size:12px;">Convert 0xFFFFFFEC (32-bit signed int):
+
+Step 1: Leading digit F → 1111 → MSB=1 → NEGATIVE
+
+Step 2: Flip all hex digits (subtract each from F):
+  FFFFFFEC → ~FFFFFFEC = 00000013
+
+Step 3: Add 1, then negate:
+  0x00000013 + 1 = 0x00000014 = 20
+  Final answer: <span class="w">-20</span>
+
+Shortcut table (leading digit → sign):
+  0–7 → positive (read directly)
+  8–F → negative (flip+add-1)</pre>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-red">
+        <h3>⚠ Arithmetic vs Logical Right Shift</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">The <code>&gt;&gt;</code> operator behaves differently depending on signed vs unsigned:</p>
+        <pre style="font-size:12px;"><span class="c">// UNSIGNED (logical shift): fills left with ZEROS</span>
+<span class="t">unsigned int</span> x = 0xF0000000;
+x >> 3; <span class="c">// = 0x1E000000 (fills with 0s) ✓</span>
+
+<span class="c">// SIGNED (arithmetic shift): fills left with SIGN BIT</span>
+<span class="t">int</span> y = 0xF0000000; <span class="c">// negative! MSB=1</span>
+y >> 3; <span class="c">// = 0xFE000000 (fills with 1s!) ✗ WRONG for bit extraction</span></pre>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)">F25 Snake exam: <code>int food_pts = c &gt;&gt; 3</code> is wrong because if MSB is set, sign extension corrupts the result. Fix: cast to <code>(unsigned int)</code> first.</p>
+      </div>
+      <div class="card accent-left">
+        <h3>Overflow &amp; Undefined Behavior</h3>
+        <ul>
+          <li>Signed integer overflow = <span class="red">undefined behavior (UB)</span></li>
+          <li>Unsigned overflow = <em>well-defined</em>: wraps mod 2<sup>N</sup></li>
+          <li><code>INT_MAX + 1</code> → UB; optimizer may <em>remove</em> code that relies on it</li>
+          <li><code>0x7fff'ffff + 1</code> = <code>0x8000'0000</code> = the <em>most negative</em> int (in practice, UB)</li>
+          <li>UBSan: compile with <code>-fsanitize=undefined</code> to detect at runtime</li>
+          <li><code>0xffff'fffe</code> as signed int = <strong>-2</strong> (leading F → negative, flip+add-1: 0x01+1=0x02=2)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Two's complement addition diagram -->
+    <div class="memmap" style="margin-top:16px;">
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px;">TWO'S COMPLEMENT: Why -1 = 0xFF (for 1 byte / 8 bits)</div>
+      <pre style="background:transparent;border:none;padding:0;margin:0;font-size:12.5px;color:#c8d0e8;">  0x01  =  0000 0001   (+1)
++ 0xFF  =  1111 1111   (-1 in two's complement)
+─────────────────────
+  0x100 → <span style="color:var(--accent3)">carry bit dropped</span> → 0x00 = 0  ✓
+
+To find -x from x:   flip all bits (~x), then add 1
+Example: x = 5 = 0000 0101
+  ~x    =       1111 1010
+  ~x+1  =       1111 1011  = 0xFB = -5  ✓  (check: 5 + (-5) = 0)</pre>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Little-endian trap:</strong> On x86-64, multi-byte integers are stored in memory with the <em>least significant byte first</em>. So the integer <code>0x0000'0001</code> is stored in memory as bytes <code>01 00 00 00</code>. When reading hex dumps, remember to reverse byte order to get the integer value.</span>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Signed Ranges (two's complement)</h3>
+        <table>
+          <tr><th>Type</th><th>Min</th><th>Max</th></tr>
+          <tr><td><code>char</code> (8-bit)</td><td class="re">-128</td><td class="hi">127</td></tr>
+          <tr><td><code>short</code> (16-bit)</td><td class="re">-32,768</td><td class="hi">32,767</td></tr>
+          <tr><td><code>int</code> (32-bit)</td><td class="re">≈ -2.1B</td><td class="hi">≈ 2.1B</td></tr>
+          <tr><td><code>long</code> (64-bit)</td><td class="re">≈ -9.2 × 10<sup>18</sup></td><td class="hi">≈ 9.2 × 10<sup>18</sup></td></tr>
+        </table>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)">Positive range is one smaller than negative range because 0 takes a slot on the positive side.</p>
+      </div>
+      <div class="card accent-blue">
+        <h3>Spotting Negatives in Hex Dumps</h3>
+        <ul>
+          <li>Any value with MSB = 1 is negative when signed</li>
+          <li>For a byte: <code>0x80</code>–<code>0xFF</code> are negative</li>
+          <li>For a 4-byte int: <code>0x8000'0000</code>–<code>0xFFFF'FFFF</code> are negative</li>
+          <li><code>0xFF</code> as <code>unsigned char</code> = 255; as <code>signed char</code> = -1</li>
+          <li>Same bits, different interpretation — classic exam question</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Hexdump reading + signed conversion -->
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Reading Little-Endian Hexdumps (Step-by-Step)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">x86-64 stores integers LSB-first. To read an int from a hexdump, <strong>reverse the bytes</strong> then interpret:</p>
+        <pre style="font-size:12px;"><span class="c">// 4-byte int (positive):</span>
+Hexdump:  0C 00 00 00
+Reversed: 00 00 00 0C  =  0x0000000C  =  <span class="s">12</span>
+
+<span class="c">// 4-byte int (negative):</span>
+Hexdump:  FC FF FF FF
+Reversed: FF FF FF FC  =  0xFFFFFFFC  → leading F = negative
+Flip+add-1: ~FFFFFFFC = 00000003, +1 = 4 → answer: <span class="w">-4</span>
+
+<span class="c">// 8-byte pointer:</span>
+Hexdump:  80 69 70 c6 fc 7f 00 00
+Reversed: 00 00 7f fc c6 70 69 80  =  0x00007ffcc6706980
+<span class="c">// near 0x7fff → STACK address</span>
+
+<span class="c">// Why 2 hex digits = 1 byte:</span>
+<span class="c">// 1 hex digit = 4 bits (nibble), so 2 × 4 = 8 bits = 1 byte</span>
+<span class="c">// "0C" = 0000(0) 1100(C) = 0000_1100 in binary</span></pre>
+      </div>
+      <div class="card accent-purple">
+        <h3>Signed Hex → Decimal (Flip-and-Add-1)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Leading digit 0–7 = positive (read directly). Leading digit 8–F = negative:</p>
+        <pre style="font-size:12px;"><span class="c">// Convert 0xFFFFFFEC:</span>
+Step 1: F is 1111 in binary → MSB=1 → NEGATIVE
+Step 2: Flip (subtract each hex digit from F):
+        ~FFFFFFEC = 00000013
+Step 3: Add 1: 0x13 + 1 = 0x14 = 20 → answer: <span class="w">-20</span>
+
+<span class="c">// Common shortcuts to memorize:</span>
+0xFFFFFFFF = -1      0xFFFFFFFE = -2
+0xFFFFFFEC = -20     0xFFFFFFFC = -4
+0x80000000 = INT_MIN = -2,147,483,648
+0x7FFFFFFF = INT_MAX = +2,147,483,647
+
+<span class="c">// Bitwise OR on hex values (exam Q: arr[0] | arr[4]):</span>
+0x0C | 0xA1:
+  0000 1100   (0x0C)
+| 1010 0001   (0xA1)
+= 1010 1101   (0xAD)  ← OR each bit position</pre>
+      </div>
+    </div>
+
+  <!-- ─── SECTION 14: Caching ─── -->
+  <section id="s14">
+    <div class="section-label">
+      <span class="num">14</span>
+      <h2>Caching &amp; Storage Hierarchy</h2>
+      <span class="tag med">conceptual + perf</span>
+    </div>
+
+    <div class="cards single">
+      <div class="card accent-blue">
+        <h3>Definition</h3>
+        <p>A <mark>cache</mark> is a small amount of <strong>fast storage</strong> used to speed up access to larger, slower storage. Each layer of the hierarchy acts as a cache for the layer below it.</p>
+      </div>
+    </div>
+
+    <!-- Storage hierarchy diagram -->
+    <div class="memmap" style="margin-top:14px;">
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:12px;">STORAGE HIERARCHY — faster/smaller/costlier at top, slower/larger/cheaper at bottom</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div style="background:#ece5f8;border:1px solid #c4a8e8;color:#5a20a0;padding:7px 0;width:180px;text-align:center;font-size:12px;border-radius:3px;">
+          Registers<br><span style="font-size:10px;color:var(--text-dim)">~300 bytes · 0.5 ns · on-chip</span>
+        </div>
+        <div style="color:var(--text-dim);font-size:11px;">↕</div>
+        <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:7px 0;width:240px;text-align:center;font-size:12px;border-radius:3px;">
+          L1 / L2 / L3 Cache (SRAM)<br><span style="font-size:10px;color:var(--text-dim)">KB–MB · ~5 ns · on-chip</span>
+        </div>
+        <div style="color:var(--text-dim);font-size:11px;">↕</div>
+        <div style="background:#e6f4e0;border:1px solid #90c880;color:#1e5e14;padding:7px 0;width:300px;text-align:center;font-size:12px;border-radius:3px;">
+          DRAM (Main Memory)<br><span style="font-size:10px;color:var(--text-dim)">8 GB · 60 ns · separate chip</span>
+        </div>
+        <div style="color:var(--text-dim);font-size:11px;">↕</div>
+        <div style="background:#fffbe6;border:1px solid #e8d080;color:#7a5800;padding:7px 0;width:360px;text-align:center;font-size:12px;border-radius:3px;">
+          SSD / Flash<br><span style="font-size:10px;color:var(--text-dim)">512 GB · 60 µs · 1000× slower than DRAM</span>
+        </div>
+        <div style="color:var(--text-dim);font-size:11px;">↕</div>
+        <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:7px 0;width:420px;text-align:center;font-size:12px;border-radius:3px;">
+          Hard Disk (HDD)<br><span style="font-size:10px;color:var(--text-dim)">2–5 TB · 4–13 ms · 100,000× slower than DRAM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Cache Performance</h3>
+        <ul>
+          <li><strong>Cache hit:</strong> data already in cache → fast access</li>
+          <li><strong>Cache miss:</strong> must fetch from slower storage below</li>
+          <li>Sequential access → ~74% LLC hit rate (prefetching helps)</li>
+          <li>Random access → ~22% LLC hit rate → <span class="red">16× slower</span></li>
+          <li><strong>Locality of reference</strong> = accessing nearby addresses in sequence → maximizes hit rate</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>Why Alignment ↔ Caching</h3>
+        <ul>
+          <li>CPU fetches memory in fixed-size <strong>cache lines</strong> (blocks), not individual bytes</li>
+          <li>An unaligned int could span two cache lines → requires <span class="red">two fetches</span></li>
+          <li>Aligned data always fits in one cache line → one fetch</li>
+          <li>This is the physical reason alignment rules exist</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="keyfact">
+      Key latency numbers to know: DRAM ≈ 60 ns · SSD ≈ 60 µs (1000× slower) · HDD ≈ 10 ms (100,000× slower). A system call costs ~1–2 µs = ~20× a DRAM access.
+    </div>
+  </section>
+
+  <!-- ─── SECTION 15: File I/O ─── -->
+  <section id="s15">
+    <div class="section-label">
+      <span class="num">15</span>
+      <h2>File I/O &amp; File Descriptors</h2>
+      <span class="tag med">systems concepts</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-blue">
+        <h3>File Descriptors (FDs)</h3>
+        <ul>
+          <li>FDs are <mark>integer handles</mark> the kernel uses to track open resources per-process</li>
+          <li>FD 0 = <code>stdin</code>, FD 1 = <code>stdout</code>, FD 2 = <code>stderr</code> — always pre-allocated</li>
+          <li>First file you <code>open()</code> gets FD <strong>3</strong> (not 0)</li>
+          <li><code>open()</code> → allocates FD; <code>close()</code> → releases it</li>
+          <li>Kernel maintains offset (current read/write position) per FD; use <code>lseek()</code> to change it</li>
+        </ul>
+      </div>
+      <div class="card accent-left">
+        <h3>read() / write() API</h3>
+        <pre style="margin:0;background:transparent;border:none;padding:0;font-size:12px;">int read(int fd, void* buf, size_t count)
+  → returns bytes read, 0 at EOF, -1 on error
+
+int write(int fd, void* buf, size_t count)
+  → returns bytes written, -1 on error</pre>
+        <ul style="margin-top:10px;">
+          <li>Kernel advances FD offset by bytes read/written automatically</li>
+          <li>System calls cost ~1–2 µs each — avoid in tight loops</li>
+          <li><code>O_SYNC</code> flag forces immediate disk write → very slow (100s bytes/sec)</li>
+          <li>Without <code>O_SYNC</code>: writes go to OS page cache first → hundreds MB/sec</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>I/O caching risk:</strong> Without <code>O_SYNC</code>, a successful <code>write()</code> does <em>not</em> guarantee data is on disk. If power is lost before the OS flushes its page cache, data is gone even though <code>write()</code> returned success.</span>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ</span>
+      <span><strong>Why I/O must go through the OS:</strong> The OS mediates all I/O to ensure only one process at a time modifies physical hardware (disk, network), enforces permissions, and enables fair sharing. User-space programs cannot access hardware directly (except via special memory-mapped I/O).</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 16: Assembly ─── -->
+  <section id="s16">
+    <div class="section-label">
+      <span class="num">16</span>
+      <h2>Assembly Language &amp; Registers</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Three Instruction Types</h3>
+        <ol style="padding-left:16px;font-size:14px;line-height:1.9;">
+          <li><strong>Computation</strong> — operates on register values (e.g., <code>addq %rax, %rbx</code> → <code>%rbx := %rbx + %rax</code>). <em>Source operand first, destination second.</em></li>
+          <li><strong>Data movement</strong> — moves data between registers and memory (e.g., <code>movq %rax, %rbx</code> copies %rax → %rbx). Source first, destination second.</li>
+          <li><strong>Control flow</strong> — changes <code>%rip</code>, the instruction pointer (branches, calls, returns).</li>
+        </ol>
+        <div class="alert warn" style="margin-top:10px;">
+          <span class="alert-icon">⚠</span>
+          <span><strong>AT&T vs Intel syntax:</strong> We use AT&T (percent signs on registers, source before destination). Intel syntax reverses the order — destination first. Don't mix them up reading outside sources.</span>
+        </div>
+      </div>
+      <div class="card accent-blue">
+        <h3>Key Registers</h3>
+        <table>
+          <tr><th>Register</th><th>Role</th><th>Callee-saved?</th></tr>
+          <tr><td class="hi"><code>%rdi</code></td><td>1st argument</td><td>No</td></tr>
+          <tr><td class="hi"><code>%rsi</code></td><td>2nd argument</td><td>No</td></tr>
+          <tr><td class="hi"><code>%rdx</code></td><td>3rd argument</td><td>No</td></tr>
+          <tr><td class="hi"><code>%rcx</code></td><td>4th argument</td><td>No</td></tr>
+          <tr><td class="hi"><code>%r8</code></td><td>5th argument</td><td>No</td></tr>
+          <tr><td class="hi"><code>%r9</code></td><td>6th argument</td><td>No</td></tr>
+          <tr><td class="hi"><code>%rax</code></td><td>Return value</td><td>No</td></tr>
+          <tr><td><code>%rsp</code></td><td>Stack pointer</td><td>Yes</td></tr>
+          <tr><td><code>%rbp</code></td><td>Base pointer</td><td>Yes</td></tr>
+          <tr><td><code>%rip</code></td><td>Instruction pointer</td><td>—</td></tr>
+          <tr><td><code>%rflags</code></td><td>Condition flags</td><td>No</td></tr>
+          <tr><td class="bl"><code>%rbx,%r12–r15</code></td><td>General purpose</td><td><span style="color:var(--accent2)">Yes</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Register layout diagram -->
+    <div class="memmap" style="margin-top:14px;">
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px;">%RAX REGISTER — sub-register naming (same physical bits, different widths)</div>
+      <pre style="background:transparent;border:none;padding:0;margin:0;font-size:12px;color:var(--text);">63                              31              15      7       0
++-------------------------------+-------------------------------+
+|                               |               |       |       |
++---------------------------------------------------------------+
+|---------------------%rax (64-bit / 8 bytes)--------------------|
+                                |-----%eax (32-bit / 4 bytes)----|
+                                                |-%ax (16-bit)--|
+                                                |--%ah--|-%al---| ← 8-bit each</pre>
+      <div style="font-size:11px;color:var(--text-dim);margin-top:10px;">
+        Instruction suffix encodes width: <strong>b</strong>=byte(8), <strong>w</strong>=word(16), <strong>l</strong>=long(32), <strong>q</strong>=quad(64).
+        <br>⚠ "long" in x86-64 asm = 4 bytes = C <code>int</code>. C's <code>long</code> = 8 bytes = asm "quad" (<code>q</code> suffix).
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-purple">
+        <h3>Instruction Suffixes</h3>
+        <table>
+          <tr><th>Suffix</th><th>Width</th><th>C type</th><th>Registers</th></tr>
+          <tr><td class="hi"><code>b</code></td><td>8-bit</td><td><code>char</code></td><td><code>%al, %bl</code>…</td></tr>
+          <tr><td class="hi"><code>w</code></td><td>16-bit</td><td><code>short</code></td><td><code>%ax, %bx</code>…</td></tr>
+          <tr><td class="hi"><code>l</code></td><td>32-bit</td><td><code>int</code></td><td><code>%eax, %ebx</code>…</td></tr>
+          <tr><td class="hi"><code>q</code></td><td>64-bit</td><td><code>long</code> / pointer</td><td><code>%rax, %rbx</code>…</td></tr>
+        </table>
+      </div>
+      <div class="card accent-left">
+        <h3>Reading Assembly Tips</h3>
+        <ul>
+          <li>Lines starting with <code>.</code> are assembler directives (mostly ignorable)</li>
+          <li>Lines ending in <code>:</code> are <strong>labels</strong> — targets for branches</li>
+          <li><strong>Work backwards from <code>ret</code></strong> to understand what a function does</li>
+          <li>No types exist in assembly — all type info is erased by the compiler</li>
+          <li>In disassembled output (<code>objdump -d</code>), labels are replaced by raw addresses</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 17: Control Flow ─── -->
+  <section id="s17">
+    <div class="section-label">
+      <span class="num">17</span>
+      <h2>Control Flow &amp; Flags</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Condition Flags (%rflags)</h3>
+        <table>
+          <tr><th>Flag</th><th>Meaning</th><th>Set when…</th></tr>
+          <tr><td class="hi">ZF</td><td>Zero flag</td><td>Result = 0</td></tr>
+          <tr><td class="hi">SF</td><td>Sign flag</td><td>Result MSB = 1 (negative)</td></tr>
+          <tr><td class="re">CF</td><td>Carry flag</td><td>Unsigned overflow</td></tr>
+          <tr><td class="re">OF</td><td>Overflow flag</td><td>Signed overflow</td></tr>
+        </table>
+        <p style="font-size:13px;margin-top:8px;"><code>cmp a, b</code> computes <code>b - a</code>, sets flags, discards result.<br><code>test a, b</code> computes <code>a & b</code>, sets flags, discards result.</p>
+      </div>
+      <div class="card accent-blue">
+        <h3>Common Branch Instructions</h3>
+        <table>
+          <tr><th>Instruction</th><th>C equivalent</th><th>Flags checked</th></tr>
+          <tr><td><code>je / jz</code></td><td><code>==</code></td><td>ZF</td></tr>
+          <tr><td><code>jne / jnz</code></td><td><code>!=</code></td><td>!ZF</td></tr>
+          <tr><td><code>jl</code></td><td><code>&lt;</code> signed</td><td>SF ⊕ OF</td></tr>
+          <tr><td><code>jg</code></td><td><code>&gt;</code> signed</td><td>!ZF &amp;&amp; !(SF⊕OF)</td></tr>
+          <tr><td><code>jb</code></td><td><code>&lt;</code> unsigned</td><td>CF</td></tr>
+          <tr><td><code>ja</code></td><td><code>&gt;</code> unsigned</td><td>!CF &amp;&amp; !ZF</td></tr>
+          <tr><td><code>jmp</code></td><td>unconditional</td><td>—</td></tr>
+          <tr><td><code>js</code></td><td>negative (signed)</td><td>SF</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-purple">
+        <h3>Loop Pattern in Assembly</h3>
+        <p style="font-size:13.5px;">A backward branch (target address <em>above</em> the branch) nearly always indicates a loop.</p>
+        <pre style="margin-top:10px;">.L3:                    <span class="c">← loop top label</span>
+    movslq (%rdx), %rcx <span class="c">← loop body</span>
+    addq   %rcx, %rax
+    addq   $4, %rdx     <span class="c">← increment (by 4 = sizeof int)</span>
+    cmpq   %rsi, %rdx   <span class="c">← check loop condition</span>
+    jne    .L3          <span class="c">← branch BACK → it's a loop</span></pre>
+      </div>
+      <div class="card accent-left">
+        <h3>Addressing Modes</h3>
+        <table>
+          <tr><th>Syntax</th><th>Value used</th></tr>
+          <tr><td><code>%rbp</code></td><td>Contents of register %rbp</td></tr>
+          <tr><td><code>$0x4</code></td><td>Immediate constant 4</td></tr>
+          <tr><td><code>(%rax)</code></td><td>Memory at address in %rax</td></tr>
+          <tr><td><code>0x4(%rax)</code></td><td>Memory at %rax + 4</td></tr>
+          <tr><td><code>(%rax,%rbx,4)</code></td><td>Memory at %rax + %rbx×4</td></tr>
+          <tr><td><code>g(%rip)</code></td><td>%rip-relative global (PIE)</td></tr>
+        </table>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)">General form: <code>offset(base, index, scale)</code> = base + offset + index×scale. Scale must be 1, 2, 4, or 8.</p>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ</span>
+      <span><strong>%rip-relative addressing (PIEs):</strong> Position-independent executables use <code>g(%rip)</code> to reference globals. The delta between the instruction and the global stays constant regardless of where the OS loads the program — enabling ASLR (Address Space Layout Randomization), a security feature.</span>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 18: Calling Convention & Stack ─── -->
+  <section id="s18">
+    <div class="section-label">
+      <span class="num">18</span>
+      <h2>Calling Convention &amp; The Stack</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>x86-64 Linux Calling Convention</h3>
+        <ul>
+          <li>Args 1–6 → registers: <code>%rdi, %rsi, %rdx, %rcx, %r8, %r9</code></li>
+          <li>Args 7+ → pushed onto <mark>caller's stack frame</mark></li>
+          <li>Return value → <code>%rax</code></li>
+          <li><strong>Caller-saved</strong> registers: callee may overwrite freely (<code>%rax, %rdi, %rsi, %rdx, %rcx, %r8–%r11, %rflags</code>)</li>
+          <li><strong>Callee-saved</strong> registers: callee must restore before returning (<code>%rbx, %rbp, %rsp, %r12–%r15</code>)</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>⚠ What Happens When f() Calls g()</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">f() was the callee (working for main). Now f() becomes the <em>caller</em> of g(). The same 6 argument registers are reused — if f() still needs its own args, it must save them first:</p>
+        <ul>
+          <li><code>%rdi</code> etc. are <span class="red">caller-saved</span> — g() is allowed to destroy them</li>
+          <li>f() must <code>pushq %rdi</code> before calling g() if it still needs its original arg 1</li>
+          <li>After g() returns, f() does <code>popq %rdi</code> to restore</li>
+          <li>If f() is <em>done</em> with an arg, it can skip the save/restore — no need to waste instructions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-blue">
+        <h3>callq / retq Mechanics</h3>
+        <ul>
+          <li><code>callq FUNC</code> ≡ <code>pushq $NEXT_INSTR; jmp FUNC</code> — pushes return address then jumps</li>
+          <li><code>retq</code> ≡ <code>popq %rip</code> — pops return address and jumps to it</li>
+          <li>Return address is stored in <mark>caller's stack frame</mark> (not callee's!)</li>
+          <li><code>pushq %rax</code> ≡ <code>subq $8, %rsp; movq %rax, (%rsp)</code></li>
+          <li><code>popq %rax</code> ≡ <code>movq (%rsp), %rax; addq $8, %rsp</code></li>
+        </ul>
+        <div class="alert warn" style="margin-top:8px;">
+          <span class="alert-icon">⚠</span>
+          <span>Common misconception: return address is in the <em>caller's</em> frame, not the callee's. It sits just above the callee's entry %rsp.</span>
+        </div>
+      </div>
+      <div class="card accent-purple">
+        <h3>The Red Zone — Why Locals Can Be Below %rsp</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">In unoptimized small functions, you may see args stored at <code>-4(%rsp)</code> without any <code>subq</code> to move %rsp first. This is the <strong>Red Zone</strong>:</p>
+        <ul>
+          <li>x86-64 Linux guarantees the 128 bytes <em>below</em> %rsp won't be overwritten by signals or interrupts</li>
+          <li>Compiler shortcut: tiny leaf functions (no further calls) can skip adjusting %rsp entirely</li>
+          <li>The data is <em>conceptually</em> inside f()'s stack frame even though it's physically below %rsp</li>
+          <li>Normally (non-leaf functions): must <code>subq $N, %rsp</code> to officially claim the space</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stack frame diagram -->
+    <div class="memmap" style="margin-top:16px;">
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:12px;">STACK LAYOUT during a function call (addresses decrease downward = stack grows down)</div>
+      <div style="display:flex;gap:0;flex-direction:column;font-family:var(--mono);font-size:12px;">
+        <div style="display:flex;gap:0;">
+          <div style="width:120px;text-align:right;padding-right:12px;color:var(--text-dim);font-size:11px;padding-top:6px;">higher addr ↑</div>
+          <div style="flex:1;background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:8px 14px;border-radius:3px 3px 0 0;">
+            … caller's locals and args …
+          </div>
+        </div>
+        <div style="display:flex;gap:0;">
+          <div style="width:120px;text-align:right;padding-right:12px;color:var(--text-dim);font-size:11px;padding-top:6px;">caller frame</div>
+          <div style="flex:1;background:#fde8e8;border:1px solid #f0a0a0;border-top:none;color:#8b1a1a;padding:8px 14px;">
+            7th+ args (if any) — pushed by caller
+          </div>
+        </div>
+        <div style="display:flex;gap:0;">
+          <div style="width:120px;text-align:right;padding-right:12px;color:var(--text-dim);font-size:11px;padding-top:6px;">← still caller</div>
+          <div style="flex:1;background:#fff3cc;border:1px solid #e8c840;border-top:none;color:#7a5800;padding:8px 14px;font-weight:700;">
+            return address ← stored by callq
+          </div>
+        </div>
+        <div style="display:flex;gap:0;">
+          <div style="width:120px;text-align:right;padding-right:12px;color:var(--text-dim);font-size:11px;padding-top:6px;">entry %rsp</div>
+          <div style="flex:1;background:#ddeeff;border:1px solid #90b8e8;border-top:none;color:#0b4f8a;padding:8px 14px;font-weight:700;">
+            saved %rbp (if base pointer used) ← pushed by callee
+          </div>
+        </div>
+        <div style="display:flex;gap:0;">
+          <div style="width:120px;text-align:right;padding-right:12px;color:var(--text-dim);font-size:11px;padding-top:6px;">callee frame</div>
+          <div style="flex:1;background:#ddeeff;border:1px solid #90b8e8;border-top:none;color:#0b4f8a;padding:8px 14px;">
+            callee's local variables
+          </div>
+        </div>
+        <div style="display:flex;gap:0;">
+          <div style="width:120px;text-align:right;padding-right:12px;color:var(--text-dim);font-size:11px;padding-top:6px;">current %rsp ↓</div>
+          <div style="flex:1;background:#ddeeff;border:1px solid #90b8e8;border-top:none;color:#0b4f8a;padding:8px 14px;border-radius:0 0 3px 3px;">
+            (stack grows downward)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-purple">
+        <h3>Base Pointer (%rbp) Convention</h3>
+        <ul>
+          <li>Callee entry: <code>pushq %rbp</code> then <code>movq %rsp, %rbp</code></li>
+          <li><code>%rbp</code> = stable reference to callee's frame base for whole function duration</li>
+          <li><code>(%rbp)</code> = saved caller's <code>%rbp</code> ← <strong>what stored %rbp POINTS TO</strong></li>
+          <li><code>8(%rbp)</code> = return address ← 8 bytes <em>above</em> stored %rbp (higher address)</li>
+          <li>This chain of saved <code>%rbp</code> values enables <strong>stack unwinding</strong> (GDB backtraces, ASan errors)</li>
+          <li>Callee exit: <code>movq %rbp, %rsp; popq %rbp; retq</code> (= <code>leave; retq</code>)</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>⚠ What Stored %rbp Points To — The Exam Question</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">The value <em>stored at</em> <code>(%rbp)</code> is the <strong>caller's %rbp address</strong>. It must point to a <em>higher</em> address than the current return address. Use this diagram to answer "which address is stored %rbp?":</p>
+        <div class="memmap" style="margin:0;">
+          <pre style="background:transparent;border:none;padding:0;font-size:11.5px;color:var(--text);">HIGH ADDRESSES
+┌─────────────────────────────────────┐
+│  main()'s frame                     │
+│  ...main's locals...                │ ← main's %rbp (0x7fff_e380) points HERE
+├─────────────────────────────────────┤
+│  return address (to main line 19)   │ 8(%rbp)  = 0x7fff_e368  ← higher
+│  stored %rbp = <span style="color:#d63b3b;font-weight:700;">0x7fff_e380</span>         │ (%rbp)   = 0x7fff_e360  ← current %rbp
+│  local: total                       │ -4(%rbp) = 0x7fff_e35c
+│  local: y                           │ -8(%rbp) = 0x7fff_e358
+│  local: x                           │ ...
+│  ← %rsp (0x7fff_e350)               │
+└─────────────────────────────────────┘
+LOW ADDRESSES
+
+Rule: stored %rbp value > 8(%rbp) address > (%rbp) address > %rsp
+→ In a multiple-choice question, pick the address ABOVE the return address
+  (i.e., higher than 8(%rbp)) that is still inside the caller's territory.</pre>
+        </div>
+        <p style="font-size:12px;margin-top:6px;color:var(--text-dim)">When GDB prints a backtrace, it follows this chain: current %rbp → (%rbp) → the value at that address → etc. This is "stack unwinding."</p>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-red">
+        <h3>Buffer Overflow Attacks</h3>
+        <ul>
+          <li>If a function writes beyond the end of a stack buffer, it overwrites <span class="red">the return address</span></li>
+          <li>Attacker can replace return address with address of any function in the binary</li>
+          <li>Attack payload size = buffer size + saved %rbp + return addr</li>
+          <li>Stack frames on x86-64 Linux are aligned to <strong>16-byte boundaries</strong></li>
+        </ul>
+      </div>
+      <div class="card accent-blue">
+        <h3>Buffer Overflow — Direction of Overflow</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Stack grows <em>down</em> (to lower addresses), but array indexing goes <em>up</em> (to higher addresses). So overflowing a buffer writes <em>toward higher addresses</em> — toward saved %rbp and then the return address:</p>
+        <div class="memmap" style="margin:0;">
+          <div style="display:flex;flex-direction:column;gap:2px;font-size:11px;">
+            <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:5px 10px;border-radius:3px;">Return address ← <strong>overwritten last (target)</strong></div>
+            <div style="background:#fff3cc;border:1px solid #e8c840;color:#7a5800;padding:5px 10px;">Saved %rbp ← overwritten second (8 bytes of junk)</div>
+            <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:5px 10px;">char buf[N] ← overflow starts here, writes UP ↑</div>
+            <div style="color:var(--text-dim);font-size:10px;text-align:center;">↑ lower addresses (where %rsp points)</div>
+          </div>
+        </div>
+        <p style="font-size:12.5px;margin-top:8px;">Modern defenses: <strong>stack canaries</strong> (detect if buf overwritten), <strong>ASLR</strong> (randomize addresses), <strong>NX bit</strong> (non-executable stack)</p>
+      </div>
+    </div>
+
+    <div class="keyfact">
+      Full call/return sequence: caller saves caller-saved regs → stores args in %rdi/%rsi/… → callq (pushes return addr + jumps) → callee pushq %rbp → movq %rsp,%rbp → does work → result in %rax → leave; retq → caller restores.
+    </div>
+  </section>
+
+  <!-- ─── SECTION 8: Traps (updated) ─── -->
+
+
+  <section id="s8">
+    <div class="section-label">
+      <span class="num">08</span>
+      <h2>High-Yield Traps &amp; Edge Cases</h2>
+      <span class="tag high">exam traps</span>
+    </div>
+
+    <div class="cards">
+      <div class="card accent-red">
+        <h3>🔢 Number System Traps</h3>
+        <ul>
+          <li><code>0x41</code> = decimal <strong>65</strong> = ASCII <strong>'A'</strong> — hex and ASCII collide constantly</li>
+          <li>Binary has no standard prefix in C (<code>0b</code> is a GCC extension, not ISO C)</li>
+          <li><code>0</code> prefix = octal in C: <code>010</code> = 8, not 10</li>
+          <li>2<sup>10</sup> = 1024 ≈ 1000, but <em>not equal</em>; use GiB/MiB when you mean powers of 2</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>🧵 String Traps</h3>
+        <ul>
+          <li>"Hello" = 5 chars but takes <strong>6 bytes</strong> due to NUL</li>
+          <li><code>'0'</code> (char) = 48 ≠ <code>0</code> (integer/NUL)</li>
+          <li><code>char*</code> = pointer to first char; does NOT store the string itself</li>
+          <li>Assigning <code>p = "literal"</code> makes <code>p</code> point to static memory — <em>not</em> a copy</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>📍 Pointer Traps</h3>
+        <ul>
+          <li>All pointer types are 8 bytes on 64-bit regardless of pointed-to type</li>
+          <li><code>&amp;</code> gives address; <code>*</code> follows address — don't swap them</li>
+          <li><code>int* p, q;</code> — <code>q</code> is <code>int</code>, not <code>int*</code></li>
+          <li>Uninitialized pointer = garbage address → dereferencing it = undefined behavior</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>📐 Alignment Traps</h3>
+        <ul>
+          <li>Struct size ≠ sum of member sizes due to padding</li>
+          <li>Reordering struct members in source <em>can</em> reduce size; compiler cannot do it for you</li>
+          <li><code>sizeof(struct x)</code> includes padding — use it instead of manual math</li>
+          <li>Trailing padding is added so arrays of the struct stay aligned</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>🔣 Two's Complement Traps</h3>
+        <ul>
+          <li><code>0xFF</code> as <code>unsigned char</code> = 255; as <code>signed char</code> = -1</li>
+          <li>Signed overflow = <span class="red">undefined behavior</span>; optimizer can delete your code</li>
+          <li>Unsigned overflow = well-defined wraparound (not UB)</li>
+          <li>Little-endian: bytes in memory are reversed from how we write numbers</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>🗂 Memory Segment Traps</h3>
+        <ul>
+          <li>Stack grows <strong>down</strong>; heap grows <strong>up</strong> — they collide if memory runs out</li>
+          <li>Heap can be fragmented (holes); stack cannot</li>
+          <li>Returning pointer to local = dangling pointer (local freed at <code>}</code>)</li>
+          <li><code>malloc</code> returns <code>void*</code>; always cast to the correct type</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>🖥 Assembly Traps</h3>
+        <ul>
+          <li>AT&T syntax: source first, destination second — Intel is reversed</li>
+          <li>asm <code>l</code> suffix = 32-bit; C's <code>long</code> = 64-bit (asm <code>q</code> suffix)</li>
+          <li>Registers have no memory addresses — cannot take <code>&amp;%rax</code></li>
+          <li>Backward branch target = almost always a loop</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>📞 Calling Convention Traps</h3>
+        <ul>
+          <li>Return address stored in <em>caller's</em> stack frame, not callee's</li>
+          <li>Args 7+ go on caller's stack, not registers</li>
+          <li>Callee-saved: <code>%rbx, %rbp, %rsp, %r12–%r15</code> — callee must restore these</li>
+          <li>Buffer overflow overwrites the return address sitting above the overrun buffer</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert tip">
+      <span class="alert-icon">💡</span>
+      <span><strong>Quick self-test:</strong> (1) Why does a 16 GB machine need 8-byte addresses? (2) Byte size of <code>"CS300"</code>? (3) What does <code>*(&amp;x)</code> equal? (4) Why can heap fragment but stack can't? (5) Declaration vs. definition? (6) What is <code>-5</code> in 8-bit two's complement hex? (7) Size of <code>struct { int a; char b; int c; }</code>? (8) Why does <code>sizeof(ptr)</code> not give array length? (9) Where is the return address stored — caller or callee frame? (10) Which registers hold the first 3 function arguments?</span>
+    </div>
+
+    <!-- Quick-ref summary table -->
+    <div style="margin-top:28px;">
+      <div class="section-label" style="margin-bottom:12px;">
+        <h2 style="font-size:15px;">Quick Reference Summary</h2>
+      </div>
+      <table>
+        <tr>
+          <th>Concept</th>
+          <th>Key Fact</th>
+          <th>Common Mistake</th>
+        </tr>
+        <tr>
+          <td>Byte</td>
+          <td>8 bits; values 0–255; addresses are per-byte</td>
+          <td>Confusing bits and bytes</td>
+        </tr>
+        <tr>
+          <td>Pointer size</td>
+          <td>Always 8 bytes on 64-bit</td>
+          <td>Thinking <code>char*</code> is smaller than <code>long*</code></td>
+        </tr>
+        <tr>
+          <td>NUL terminator</td>
+          <td><code>\0</code> = 0x00; every C string ends with it</td>
+          <td>Forgetting +1 when allocating string space</td>
+        </tr>
+        <tr>
+          <td>Stack lifetime</td>
+          <td>Automatic; freed when scope ends</td>
+          <td>Returning pointer to local variable</td>
+        </tr>
+        <tr>
+          <td>Heap lifetime</td>
+          <td>Dynamic; programmer calls free()</td>
+          <td>Memory leak (no free), double-free, use-after-free</td>
+        </tr>
+        <tr>
+          <td>GiB vs GB</td>
+          <td>GiB = 2<sup>30</sup>, GB = 10<sup>9</sup></td>
+          <td>Using them interchangeably in calculations</td>
+        </tr>
+        <tr>
+          <td>Hex ↔ Binary</td>
+          <td>1 hex digit = exactly 4 bits</td>
+          <td>Going through decimal unnecessarily</td>
+        </tr>
+        <tr>
+          <td>malloc return type</td>
+          <td><code>void*</code> — untyped pointer; 16-byte aligned</td>
+          <td>Forgetting to cast; not checking for NULL</td>
+        </tr>
+        <tr>
+          <td>sizeof</td>
+          <td>Compile-time only; <code>sizeof(ptr)</code> = 8 not array size</td>
+          <td>Using sizeof on pointer expecting array size</td>
+        </tr>
+        <tr>
+          <td>Struct padding</td>
+          <td>Members in declaration order + min padding for alignment</td>
+          <td>Assuming size = sum of member sizes</td>
+        </tr>
+        <tr>
+          <td>Two's complement</td>
+          <td>-x = ~x + 1; MSB=1 → negative; signed overflow = UB</td>
+          <td>Assuming 0xFF means 255 regardless of signedness</td>
+        </tr>
+        <tr>
+          <td>Little-endian</td>
+          <td>LSB stored at lowest address; bytes reversed in hex dump</td>
+          <td>Reading hex dump directly as big-endian integer</td>
+        </tr>
+        <tr>
+          <td>Uninitialized memory</td>
+          <td>Contents undefined; may hold old secrets</td>
+          <td>Assuming malloc() zeroes memory</td>
+        </tr>
+        <tr>
+          <td>File descriptors</td>
+          <td>0=stdin, 1=stdout, 2=stderr; first open() gets FD 3</td>
+          <td>Assuming first open file gets FD 0</td>
+        </tr>
+        <tr>
+          <td>Cache hierarchy</td>
+          <td>DRAM 60 ns; SSD 60 µs; HDD 10 ms; syscall ~1–2 µs</td>
+          <td>Ignoring locality; random access ≈16× slower than sequential</td>
+        </tr>
+        <tr>
+          <td>Calling convention args</td>
+          <td>%rdi, %rsi, %rdx, %rcx, %r8, %r9; return in %rax</td>
+          <td>Confusing arg order; forgetting arg 7+ go on stack</td>
+        </tr>
+        <tr>
+          <td>Return address location</td>
+          <td>In caller's stack frame; pushed by callq</td>
+          <td>Thinking it's in callee's frame</td>
+        </tr>
+        <tr>
+          <td>Callee-saved registers</td>
+          <td>%rbx, %rbp, %rsp, %r12–%r15 must be restored by callee</td>
+          <td>Assuming all registers survive a function call</td>
+        </tr>
+        <tr>
+          <td>Assembly "long" vs C long</td>
+          <td>asm <code>l</code> = 4B (= C int); C <code>long</code> = 8B (= asm <code>q</code>)</td>
+          <td>Assuming asm "long" = C long</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── PROJECT 1: Snake ─── -->
+  <section id="p1">
+    <div class="section-label">
+      <span class="num">P1</span>
+      <h2>Project 1: Snake</h2>
+      <span class="tag med">applied concepts</span>
+    </div>
+
+    <div class="cards single">
+      <div class="card accent-blue">
+        <h3>What It Is</h3>
+        <p>You implemented the classic Snake game in C — a moving snake on a grid, eating food, growing via a linked list, and dying on wall/self collisions. The project was split into parts that tracked lecture topics: pointers → bitwise ops → strings → linked lists → structs → Unicode.</p>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Bit Flags for Cell State</h3>
+        <p style="font-size:13.5px;margin-bottom:10px;">Each board cell is a single <code>int</code> with individual bits encoding its properties simultaneously:</p>
+        <pre style="margin:0;">#define PLAIN_CELL  0b0000  // 0
+#define FLAG_SNAKE  0b0001  // 1
+#define FLAG_WALL   0b0010  // 2
+#define FLAG_FOOD   0b0100  // 4
+#define FLAG_GRASS  0b1000  // 8</pre>
+        <ul style="margin-top:10px;">
+          <li>Set a flag: <code>cell |= FLAG_SNAKE</code></li>
+          <li>Clear a flag: <code>cell &= ~FLAG_SNAKE</code></li>
+          <li>Check a flag: <code>if (cell & FLAG_WALL)</code></li>
+          <li>Snake on grass = <code>FLAG_SNAKE | FLAG_GRASS</code> = <code>0b1001</code> = 9</li>
+          <li>When snake leaves: <code>cell &= ~FLAG_SNAKE</code> — only removes snake bit, preserves grass</li>
+        </ul>
+      </div>
+      <div class="card accent-purple">
+        <h3>Global Variables + extern</h3>
+        <ul>
+          <li>Globals defined in <code>.c</code> file, declared with <code>extern</code> in <code>.h</code> file</li>
+          <li><code>extern</code> doesn't create a new variable — it tells other files one exists</li>
+          <li>Two-step: <strong>define</strong> in <code>common.c</code>, <strong>declare extern</strong> in <code>common.h</code></li>
+          <li>Without <code>extern</code>, each file would get its own copy → different values</li>
+        </ul>
+        <pre style="margin-top:8px;"><span class="c">// common.c — definition (storage lives here)</span>
+<span class="t">int</span> g_game_over;
+<span class="t">int</span> g_score;
+
+<span class="c">// common.h — declaration (tells other files it exists)</span>
+<span class="k">extern</span> <span class="t">int</span> g_game_over;
+<span class="k">extern</span> <span class="t">int</span> g_score;</pre>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Structs for Snake Data</h3>
+        <ul>
+          <li>Part 3 moved snake data from scattered globals into a single <code>snake_t</code> struct</li>
+          <li>Struct access: <code>snake.head_row</code> (value) vs <code>snake_p->head_row</code> (pointer)</li>
+          <li>Struct passed by pointer to functions so they can modify it in-place</li>
+          <li>Linked list used for snake body: head at front, tail at back; add to front on move, remove from tail (unless growing)</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>Linked List for Snake Body</h3>
+        <ul>
+          <li>Linked list = sequence of <code>node_t</code> structs, each holding coordinates + pointer to next</li>
+          <li>On each move: <strong>prepend</strong> new head position, <strong>remove tail</strong> unless eating food</li>
+          <li>Self-referential struct: <code>struct node* next</code> inside <code>struct node</code> — uses raw <code>struct node*</code> not <code>node_t*</code> because typedef isn't defined yet</li>
+          <li>Cannot embed <code>struct node</code> itself (infinite size); only a <em>pointer</em> to it</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-blue">
+        <h3>Memory Management in Snake</h3>
+        <ul>
+          <li><code>cells</code> array is heap-allocated by <code>malloc()</code> — must be freed with <code>free(cells)</code></li>
+          <li>LeakSanitizer reports if <code>malloc</code>'d memory is never freed</li>
+          <li>Leak = program exits with still-allocated heap memory</li>
+          <li>Fix: call <code>free(cells)</code> in <code>end_game()</code> before exit</li>
+          <li>Linked list nodes also need freeing when game ends — each node allocated with <code>malloc()</code></li>
+        </ul>
+      </div>
+      <div class="card accent-purple">
+        <h3>UTF-8 / Unicode (mbslen)</h3>
+        <ul>
+          <li>ASCII = 1 byte/char, only 128 chars; doesn't cover non-Latin alphabets or emoji</li>
+          <li>UTF-8 = variable width: 1–4 bytes per character</li>
+          <li>Leading bits encode length: <code>0xxxxxxx</code>=1B, <code>110xxxxx</code>=2B, <code>1110xxxx</code>=3B, <code>11110xxx</code>=4B</li>
+          <li>Continuation bytes always start with <code>10xxxxxx</code></li>
+          <li><code>strlen()</code> counts bytes, not characters — use <code>mbslen()</code> for UTF-8 character count</li>
+          <li>Check if byte is a start byte: <code>(byte & 0b11000000) != 0b10000000</code> (i.e., not a continuation byte)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Game loop trap:</strong> Initialize globals in <code>initialize_game()</code>, NOT in <code>main()</code> — the autograder calls <code>initialize_game()</code> directly and expects globals set there. Also: the snake should <em>not</em> move into a wall — detect the collision <em>before</em> updating position, and set <code>g_game_over = 1</code>.</span>
+    </div>
+
+    <div class="keyfact">
+      Key bitwise idioms: set = OR (<code>|=</code>), clear = AND with NOT (<code>&= ~FLAG</code>), test = AND (<code>& FLAG</code>). XOR (<code>^=</code>) toggles a bit. These patterns appear on exams directly.
+    </div>
+  </section>
+
+  <!-- ─── PROJECT 2: DMalloc ─── -->
+  <section id="p2">
+    <div class="section-label">
+      <span class="num">P2</span>
+      <h2>Project 2: DMalloc — Debugging Memory Allocator</h2>
+      <span class="tag high">high yield</span>
+    </div>
+
+    <div class="cards single">
+      <div class="card accent-red">
+        <h3>What It Is</h3>
+        <p>You built a drop-in replacement for <code>malloc()</code>/<code>free()</code> that tracks every allocation and detects memory bugs: double frees, invalid frees, buffer overflows, and leaks. Every call to <code>dmalloc(sz, file, line)</code> allocates slightly more memory than requested and stores metadata around the user's block.</p>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>What dmalloc Tracks</h3>
+        <ul>
+          <li><strong>nactive</strong>: current live allocations (<code>#malloc − #free</code>)</li>
+          <li><strong>active_size</strong>: total bytes in live allocations</li>
+          <li><strong>ntotal / total_size</strong>: all allocations ever made</li>
+          <li><strong>nfail / fail_size</strong>: failed allocation attempts (e.g., size too large)</li>
+          <li><strong>heap_min / heap_max</strong>: smallest and largest addresses ever allocated</li>
+        </ul>
+      </div>
+      <div class="card accent-purple">
+        <h3>Metadata Layout</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Each allocation stores metadata <em>adjacent</em> to the user's block. A typical layout:</p>
+        <div class="memmap" style="margin:0;">
+          <div style="display:flex;gap:2px;align-items:stretch;">
+            <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 8px;font-size:11px;min-width:80px;text-align:center;">Header<br><span style="color:var(--text-dim)">size, file, line, magic</span></div>
+            <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:6px 8px;font-size:11px;flex:1;text-align:center;">User data<br><span style="color:var(--text-dim)">what malloc() returns a pointer to</span></div>
+            <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 8px;font-size:11px;min-width:60px;text-align:center;">Footer<br><span style="color:var(--text-dim)">"canary" bytes</span></div>
+          </div>
+        </div>
+        <ul style="margin-top:10px;">
+          <li><code>dmalloc(sz)</code> calls <code>base_malloc(header_size + sz + footer_size)</code></li>
+          <li>Returns pointer to <em>user data</em> region, not to header</li>
+          <li>On free: walk back to header using pointer arithmetic</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-red">
+        <h3>Error Detection Methods</h3>
+        <table>
+          <tr><th>Error</th><th>How detected</th></tr>
+          <tr><td class="re">Double free</td><td>Check a "is_freed" flag in header; if already 1 → error</td></tr>
+          <tr><td class="re">Invalid free (not heap)</td><td>Check if ptr is within <code>[heap_min, heap_max]</code></td></tr>
+          <tr><td class="re">Invalid free (not start)</td><td>Walk active allocation list; if ptr is inside a block → "X bytes inside a Y byte region"</td></tr>
+          <tr><td class="re">Buffer overflow</td><td>Footer filled with known "canary" value; on free, check canary is intact</td></tr>
+          <tr><td class="re">Memory leak</td><td>At program exit, iterate all still-active allocations and print each</td></tr>
+        </table>
+      </div>
+      <div class="card accent-blue">
+        <h3>Integer Overflow Protection</h3>
+        <ul>
+          <li><code>malloc(sz)</code> parameter is <code>size_t</code> — an unsigned type that wraps on overflow</li>
+          <li>In <code>calloc(n, size)</code>: if <code>n * size</code> overflows, the computed size wraps to a small number and <code>malloc</code> succeeds with a dangerously small block</li>
+          <li>Fix: check <code>n > SIZE_MAX / size</code> before multiplying — if true, return NULL</li>
+          <li>Also check: <code>sz == 0</code> edge case (legal; returns non-NULL per C++ standard)</li>
+          <li><code>malloc(0)</code> returns non-null; <code>free(nullptr)</code> is always legal (does nothing)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>base_malloc vs malloc</h3>
+        <ul>
+          <li><code>base_malloc</code>/<code>base_free</code> are custom wrappers — they don't modify freed memory, and never return freed memory to the OS</li>
+          <li>This makes behavior reproducible and avoids the real <code>malloc</code>'s undefined behavior when testing double-free etc.</li>
+          <li>Debugging allocators <em>need</em> these guarantees to reliably detect bugs — real <code>malloc</code>'s behavior after UB is unpredictable</li>
+        </ul>
+      </div>
+      <div class="card accent-purple">
+        <h3>Canary / Boundary Write Detection</h3>
+        <ul>
+          <li>Write a known "magic" byte pattern into the 8 bytes <em>after</em> the user's allocation</li>
+          <li>On <code>free()</code>, re-read those bytes — if they changed, a write overflowed the buffer</li>
+          <li>Can only detect writes within ~8 bytes of the end (not arbitrarily far away)</li>
+          <li>Error message format: <code>MEMORY BUG: file:line: invalid free of pointer 0x…, not allocated</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Output format is exact.</strong> DMalloc tests compare your output character-by-character. One extra space or a missing newline fails the test. When a pointer is inside an existing block: print both the invalid-free message <em>and</em> the "X bytes inside a Y byte region allocated here" line on the next line.</span>
+    </div>
+
+    <div class="keyfact">
+      malloc rule: always returns 16-byte aligned pointer on x86-64. sizeof is compile-time only. free(NULL) is legal and does nothing. double-free and use-after-free are undefined behavior — UBSan (-fsanitize=undefined) catches them at runtime.
+    </div>
+  </section>
+
+  <!-- ─── PROJECT 3: File I/O Cache ─── -->
+  <section id="p3">
+    <div class="section-label">
+      <span class="num">P3</span>
+      <h2>Project 3: File I/O Cache</h2>
+      <span class="tag med">applied concepts</span>
+    </div>
+
+    <div class="cards single">
+      <div class="card accent-blue">
+        <h3>What It Is</h3>
+        <p>You implemented a caching I/O library — a layer between your program and the OS that buffers file reads/writes in memory (DRAM) to avoid slow disk syscalls. The goal: make file operations as fast as the standard library's <code>stdio</code>, which also caches internally. Without caching, <code>byte_cat</code> on a 1 MiB file took ~18 seconds; with caching, ~0.14 seconds — a ~100× speedup.</p>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>The Core API</h3>
+        <table>
+          <tr><th>Function</th><th>What it does</th></tr>
+          <tr><td><code>io300_readc(f)</code></td><td>Read 1 byte from cache (fetch from disk if needed)</td></tr>
+          <tr><td><code>io300_writec(f, ch)</code></td><td>Write 1 byte to cache (flush to disk when full)</td></tr>
+          <tr><td><code>io300_read(f, buf, sz)</code></td><td>Read sz bytes into buf — NOT just repeated readc calls</td></tr>
+          <tr><td><code>io300_write(f, buf, sz)</code></td><td>Write sz bytes from buf — NOT just repeated writec calls</td></tr>
+          <tr><td><code>io300_seek(f, pos)</code></td><td>Move to byte offset pos in file (may require flush)</td></tr>
+        </table>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)"><code>read</code> must NOT call <code>readc</code> in a loop — same for write/writec. Doing so defeats caching.</p>
+      </div>
+      <div class="card accent-purple">
+        <h3>Key Metadata to Track</h3>
+        <ul>
+          <li><strong>Cache buffer</strong>: fixed-size byte array (e.g., 8 bytes in tests)</li>
+          <li><strong>File offset</strong>: where in the file the cache currently corresponds to (<em>which chunk</em> is loaded)</li>
+          <li><strong>Cache position</strong>: current read/write position within the cache buffer</li>
+          <li><strong>Cache valid bytes</strong>: how many bytes in the cache are actually from the file (last chunk may be partial)</li>
+          <li><strong>Dirty flag</strong>: whether the cache has been written to but not yet flushed to disk</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Fetch vs Flush</h3>
+        <ul>
+          <li><strong>Fetch</strong>: read a chunk from disk into the cache (happens when cache miss on read)</li>
+          <li><strong>Flush</strong>: write dirty cache contents back to disk (happens before fetch, on seek, or on close)</li>
+          <li>Always flush before fetch — otherwise you'd overwrite unwritten data</li>
+          <li>On <code>seek()</code>: if new position is outside current cached chunk → flush if dirty, then fetch new chunk</li>
+          <li>On <code>close()</code>: always flush if dirty</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>Why System Calls Are Expensive</h3>
+        <ul>
+          <li>Each <code>read()</code>/<code>write()</code> syscall costs ~1–2 µs</li>
+          <li>Naive implementation: <em>one syscall per byte</em> → millions of syscalls for a 1 MB file</li>
+          <li>Caching reduces this to <em>one syscall per cache-sized chunk</em> → orders of magnitude fewer calls</li>
+          <li>Syscall cost = switch to OS mode + safety checks + hardware I/O — much more than a function call</li>
+          <li><code>strace -e trace=read ./program</code> shows every read syscall — use this to verify caching</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-blue">
+        <h3>Read/Write Mixed Operations Trap</h3>
+        <ul>
+          <li>The hardest case: alternating reads and writes on the same file</li>
+          <li>After a write: cache is dirty; if a subsequent read needs a different chunk, you must <em>flush first</em></li>
+          <li>After a read: if a subsequent write targets a different chunk, <em>fetch that chunk first</em> (so you don't overwrite unread data), then write into it</li>
+          <li>Invariant: cache must always reflect a coherent, contiguous region of the file</li>
+        </ul>
+      </div>
+      <div class="card accent-left">
+        <h3>File Descriptors in Practice</h3>
+        <ul>
+          <li>Your struct <code>io300_file</code> wraps a file descriptor (int FD) from <code>open()</code></li>
+          <li>All actual disk I/O uses <code>read(fd, buf, n)</code> and <code>write(fd, buf, n)</code> syscalls</li>
+          <li><code>lseek(fd, offset, SEEK_SET)</code> moves the kernel's FD offset to <code>offset</code></li>
+          <li>You must track the kernel offset yourself — it advances automatically after each read/write</li>
+          <li>On close: flush dirty cache, then <code>close(fd)</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ</span>
+      <span><strong>Design principle:</strong> The cache stores one contiguous aligned chunk of the file at a time. On a cache miss, flush (if dirty) then fetch the new chunk. All <code>readc</code>/<code>writec</code>/<code>read</code>/<code>write</code> calls operate on the cache; only fetch/flush touch the disk. This is the same principle that CPU caches use for RAM — just at the software level.</span>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Performance gotchas:</strong> (1) <code>O_SYNC</code> flag forces every write to hit disk immediately — extremely slow. Without it, writes go to the OS page cache first. (2) Your <code>io300_read</code> must copy a whole chunk in one <code>read()</code> syscall, not call <code>io300_readc</code> in a loop. (3) Writes past EOF extend the file — handle this; don't assume file size is fixed.</span>
+    </div>
+
+    <div class="keyfact">
+      The three-layer hierarchy in P3: your cache (user-space DRAM) → OS page cache (kernel DRAM) → disk (SSD/HDD). Even without O_SYNC, two caching layers are at play. The OS may lose unflushed page cache data on power failure even after a "successful" write().
+    </div>
+  </section>
+
+  <!-- ─── EXAM PATTERNS ─── -->
+
+  <section id="eq">
+    <div class="section-label">
+      <span class="num">EQ</span>
+      <h2>Past Exam Question Patterns (S23–F25)</h2>
+      <span class="tag high">direct exam prep</span>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ</span>
+      <span>These patterns appear across <strong>all four midterms</strong> (S23, S24, S25, F25). The same question types recur every year — study these formats, not just the concepts.</span>
+    </div>
+
+    <!-- ── TOPIC 1: Segment identification ── -->
+    <div class="section-label" style="margin-top:28px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">① Memory Segment Identification</h2>
+    </div>
+    <p style="font-size:14px;margin-bottom:12px;color:var(--text-dim);">Every exam has a code snippet and asks which segment each object lives in. Master this table:</p>
+    <table>
+      <tr><th>Declaration / Expression</th><th>Segment</th><th>Why / Edge case</th></tr>
+      <tr><td><code>const char* hello = "hello";</code> (global)</td><td class="hi">Data (.rodata)</td><td>Global pointer var is data; the string literal is also rodata</td></tr>
+      <tr><td><code>char* s = "literal";</code> inside a function</td><td class="hi">Stack (pointer) + .rodata (data)</td><td>Pointer var on stack; the literal string is in .rodata — writing to it = segfault</td></tr>
+      <tr><td><code>char s[] = "literal";</code> inside a function</td><td class="hi">Stack</td><td>Full copy of chars placed on stack — safe to modify</td></tr>
+      <tr><td><code>char* errors[4] = {...};</code> inside a function</td><td class="re">Stack (array of pointers)</td><td>Array itself is stack; returning a pointer to it = UB (dangling pointer)</td></tr>
+      <tr><td><code>int main() { ... }</code> — the function code itself</td><td class="blue">Code (.text)</td><td>Function <em>code</em> = text; function's local vars = stack</td></tr>
+      <tr><td><code>int x;</code> inside a function</td><td class="hi">Stack</td><td>Local variable = automatic lifetime</td></tr>
+      <tr><td><code>malloc(n)</code> return value</td><td class="re">Heap</td><td>Always heap regardless of where pointer variable lives</td></tr>
+      <tr><td><code>shark.name</code> (pointer field inside stack struct)</td><td class="hi">Stack</td><td>The pointer itself is in the struct on the stack</td></tr>
+      <tr><td><code>*shark.name</code> (memory pointed to)</td><td class="re">Heap</td><td>If allocated with malloc — the pointed-to data is heap</td></tr>
+      <tr><td><code>const int MAX = 30;</code> (global)</td><td class="blue">Data (.rodata)</td><td>const global → read-only data segment</td></tr>
+      <tr><td><code>char* errors[4] = {...}</code> inside a function</td><td class="hi">Stack</td><td>Array declared inside function = stack, even though strings it points to are rodata</td></tr>
+      <tr><td><code>std::vector&lt;char*&gt;* v = new ...</code> — <code>v</code> itself</td><td class="hi">Stack</td><td>The pointer <code>v</code> is a local var on the stack</td></tr>
+      <tr><td>The vector object <code>*v</code></td><td class="re">Heap</td><td><code>new</code> = heap allocation</td></tr>
+    </table>
+    <div class="alert warn" style="margin-top:8px;">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Classic trap (F25, S24):</strong> <code>char* errors[4]</code> inside a function — the array is on the <em>stack</em>, but the string literals it points to are in rodata. Returning a pointer to this array is UB because the stack frame is freed on return. Fix: make it <code>static</code>, make it global, or heap-allocate it.</span>
+    </div>
+
+    <!-- ── TOPIC 2: Struct size / alignment ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">② Struct Size Calculation (every single exam)</h2>
+    </div>
+    <p style="font-size:14px;margin-bottom:10px;color:var(--text-dim);">The algorithm: walk members in declaration order. Before each member, insert padding so its address is a multiple of its alignment. Then add trailing padding to make total size a multiple of the largest member's alignment.</p>
+
+    <!-- Worked example diagram -->
+    <div class="memmap">
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px;">WORKED EXAMPLE — struct fish { char name[7]; struct fish* parent; short species; int id_num; char healthy; int* caretaker_id; }</div>
+      <div style="display:flex;gap:2px;align-items:stretch;flex-wrap:wrap;">
+        <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:5px 8px;font-size:10px;min-width:70px;text-align:center;">name[7]<br><span style="color:var(--text-dim)">7B @ +0</span></div>
+        <div style="background:#f0f0f0;border:1px dashed #bbb;color:#aaa;padding:5px 4px;font-size:10px;min-width:12px;text-align:center;">P<br><span style="color:#bbb">1B</span></div>
+        <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:5px 8px;font-size:10px;min-width:65px;text-align:center;">parent*<br><span style="color:var(--text-dim)">8B @ +8</span></div>
+        <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:5px 8px;font-size:10px;min-width:40px;text-align:center;">species<br><span style="color:var(--text-dim)">2B @ +16</span></div>
+        <div style="background:#f0f0f0;border:1px dashed #bbb;color:#aaa;padding:5px 4px;font-size:10px;min-width:22px;text-align:center;">PP<br><span style="color:#bbb">2B</span></div>
+        <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:5px 8px;font-size:10px;min-width:50px;text-align:center;">id_num<br><span style="color:var(--text-dim)">4B @ +20</span></div>
+        <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:5px 6px;font-size:10px;min-width:25px;text-align:center;">healthy<br><span style="color:var(--text-dim)">1B @ +24</span></div>
+        <div style="background:#f0f0f0;border:1px dashed #bbb;color:#aaa;padding:5px 4px;font-size:10px;min-width:35px;text-align:center;">PPPPP<br><span style="color:#bbb">..pad..</span></div>
+        <div style="background:#ddeeff;border:1px solid #90b8e8;color:#0b4f8a;padding:5px 8px;font-size:10px;min-width:65px;text-align:center;">caretaker*<br><span style="color:var(--text-dim)">8B @ +32</span></div>
+      </div>
+      <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">Total = 40B. Padding: 1B after name[7] (align parent* to 8), 2B after species (align int to 4), 7B after healthy (align caretaker* to 8). No trailing pad needed (40 is multiple of 8).</div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-left">
+        <h3>Minimizing Padding — The Rule</h3>
+        <p style="font-size:13.5px;">Sort members by <strong>decreasing alignment</strong> (largest first). This usually eliminates padding between members — only trailing padding may remain.</p>
+        <pre style="margin-top:8px;font-size:12px;"><span class="c">// Worst order (24B, 9B padding):</span>
+<span class="k">struct</span> { <span class="t">int</span> i1; <span class="t">char</span> c1; <span class="t">int</span> i2; <span class="t">char</span> c2; <span class="t">int</span> i3; <span class="t">char</span> c3; }
+<span class="c">// Best order (16B, 1B trailing pad):</span>
+<span class="k">struct</span> { <span class="t">int</span> i1; <span class="t">int</span> i2; <span class="t">int</span> i3; <span class="t">char</span> c1; <span class="t">char</span> c2; <span class="t">char</span> c3; }</pre>
+      </div>
+      <div class="card accent-red">
+        <h3>Exotic Architecture Questions (S23)</h3>
+        <ul>
+          <li>If a new type has size <em>S</em> and alignment <em>A</em>, apply the same rules: pad before it to multiple of <em>A</em>, add trailing pad so struct size is multiple of <em>A</em></li>
+          <li>Register size ≥ largest type size (processors must be able to hold the type)</li>
+          <li><code>malloc()</code> alignment = max alignment of any primitive = the new type's alignment</li>
+          <li>C!! question (S24): struct member order cannot be reoptimized by compiler — so the first member rule (<code>(T*)struct == &struct.first_member</code>) is the only reliable one</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── TOPIC 3: UB ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">③ Undefined Behavior — The Full Taxonomy</h2>
+    </div>
+    <p style="font-size:14px;margin-bottom:10px;color:var(--text-dim);">Every exam has a multi-part UB question. Know exactly which scenario triggers which type:</p>
+
+    <table>
+      <tr><th>Scenario</th><th>UB?</th><th>Type / Name</th><th>Appeared in</th></tr>
+      <tr><td>Read uninitialized local <code>int i; printf("%d", i);</code></td><td class="re">Yes</td><td>Uninitialized read — indeterminate value</td><td>S23, S24, S25</td></tr>
+      <tr><td>Dereference NULL: <code>char* p = NULL; *p</code></td><td class="re">Yes</td><td>Null pointer dereference</td><td>S24</td></tr>
+      <tr><td>Write to string literal: <code>char* s = "Hi"; s[0] = 'X';</code></td><td class="re">Yes</td><td>Write to read-only memory</td><td>S25, F25</td></tr>
+      <tr><td><code>char buf[3]; strcpy(buf, "Hybrid");</code> — 6 chars into 3-byte buf</td><td class="re">Yes</td><td>Buffer overflow / out-of-bounds write</td><td>S25</td></tr>
+      <tr><td>Missing NUL: <code>char buf[size]; /* no \0 */; printf("%s", buf);</code></td><td class="re">Yes</td><td>Out-of-bounds read past unterminated string</td><td>S24</td></tr>
+      <tr><td><code>signed int</code> overflow: <code>INT_MAX + 1</code></td><td class="re">Yes</td><td>Signed integer overflow — UB (optimizer can delete)</td><td>S23, S24, F25</td></tr>
+      <tr><td><code>unsigned int</code> overflow / wraparound</td><td class="hi">No</td><td>Well-defined: wraps mod 2<sup>N</sup></td><td>S23, S24, F25</td></tr>
+      <tr><td><code>unsigned int x = 0x7fff'ffff; x + 1;</code></td><td class="hi">No</td><td>Unsigned — no UB, wraps to 0x8000'0000</td><td>S24</td></tr>
+      <tr><td>Use-after-free: <code>free(p); *p</code></td><td class="re">Yes</td><td>Use-after-free</td><td>S24, S25, F25</td></tr>
+      <tr><td>Double free: <code>free(p); free(p);</code></td><td class="re">Yes</td><td>Double free</td><td>S24, F25</td></tr>
+      <tr><td>Returning pointer to local: <code>int* f() { int x; return &x; }</code></td><td class="re">Yes</td><td>Dangling pointer / stack lifetime violation</td><td>S23, S25</td></tr>
+      <tr><td><code>buf[102]</code> when buf is 100 bytes</td><td class="re">Yes</td><td>Out-of-bounds write (boundary write error)</td><td>S23, S24</td></tr>
+      <tr><td><code>malloc(8); buf[1] = x;</code> where buf is <code>int*</code> so index 1 = valid</td><td class="hi">No</td><td>8 bytes = 2 ints, index 1 is valid</td><td>S23</td></tr>
+      <tr><td><code>greet_sharks(&shark, 0);</code> — passing 0 as count</td><td class="hi">No</td><td>Loop doesn't execute; no UB</td><td>F25</td></tr>
+      <tr><td>Right-shift a signed negative int: <code>int c = 0xF0000000; c >> 3</code></td><td class="re">No UB but wrong result</td><td>Arithmetic shift — fills left with 1s (sign extension). Cast to <code>unsigned int</code> first for logical shift</td><td>F25</td></tr>
+      <tr><td>Reading uninitialized heap: <code>int* p = malloc(4); printf("%d", *p);</code></td><td class="re">Yes</td><td>Uninitialized heap read — indeterminate value</td><td>S24 (POINT 1)</td></tr>
+    </table>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠</span>
+      <span><strong>Signed vs unsigned overflow — the most-tested distinction:</strong> <code>int i2 = 0x7FFF'FFF0; i2 + 0x64</code> overflows → UB. But <code>unsigned long l = UINT64_MAX; l + 1</code> → 0, well-defined. The compiler can assume signed overflow never happens and will delete branches that rely on it.</span>
+    </div>
+
+    <!-- ── TOPIC 4: Stack diagrams ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">④ Stack Diagrams — Exact Layout</h2>
+    </div>
+
+    <div class="memmap">
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px;">CANONICAL STACK DIAGRAM — what every exam expects you to draw (addresses decrease downward, stack grows down)</div>
+      <div style="display:flex;gap:0;flex-direction:column;font-family:var(--mono);font-size:11.5px;">
+        <div style="display:flex;"><div style="width:130px;text-align:right;padding-right:10px;color:var(--text-dim);padding-top:5px;">higher addr ↑</div><div style="flex:1;background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:6px 12px;border-radius:3px 3px 0 0;">… caller's locals, args …</div></div>
+        <div style="display:flex;"><div style="width:130px;text-align:right;padding-right:10px;color:var(--text-dim);padding-top:5px;">caller's frame</div><div style="flex:1;background:#fde8e8;border:1px solid #f0a0a0;border-top:none;color:#8b1a1a;padding:6px 12px;">7th+ args (if any) pushed by caller</div></div>
+        <div style="display:flex;"><div style="width:130px;text-align:right;padding-right:10px;color:var(--text-dim);padding-top:5px;">← still caller</div><div style="flex:1;background:#fff3cc;border:1px solid #e8c840;border-top:none;color:#7a5800;padding:6px 12px;font-weight:700;">return address ← pushed by callq</div></div>
+        <div style="display:flex;"><div style="width:130px;text-align:right;padding-right:10px;color:var(--text-dim);padding-top:5px;">entry %rsp → %rbp</div><div style="flex:1;background:#ddeeff;border:1px solid #90b8e8;border-top:none;color:#0b4f8a;padding:6px 12px;font-weight:700;">saved %rbp of caller ← pushed by callee's first instruction</div></div>
+        <div style="display:flex;"><div style="width:130px;text-align:right;padding-right:10px;color:var(--text-dim);padding-top:5px;">callee's frame</div><div style="flex:1;background:#ddeeff;border:1px solid #90b8e8;border-top:none;color:#0b4f8a;padding:6px 12px;">local variables (allocated by subq $N, %rsp)</div></div>
+        <div style="display:flex;"><div style="width:130px;text-align:right;padding-right:10px;color:var(--text-dim);padding-top:5px;">current %rsp ↓</div><div style="flex:1;background:#ddeeff;border:1px solid #90b8e8;border-top:none;color:#0b4f8a;padding:6px 12px;border-radius:0 0 3px 3px;">(lowest address in use)</div></div>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-dim);">
+        Key addresses: <strong>(%rbp)</strong> = saved %rbp of caller. &nbsp;
+        <strong>8(%rbp)</strong> = return address. &nbsp;
+        <strong>-4(%rbp)</strong>, <strong>-8(%rbp)</strong>… = local vars.
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-red">
+        <h3>Stack Diagram Traps (every exam)</h3>
+        <ul>
+          <li>Return address is in <em>caller's</em> frame — every exam has someone put it in the wrong frame</li>
+          <li>After <code>retq</code>: %rsp advances by 8 (the return address is popped), ending up pointing at the return address's old position + 8</li>
+          <li>Stored %rbp points to caller's %rbp — so it's an address <em>within</em> the caller's frame</li>
+          <li>Stack grows <em>down</em>: locals at <code>-4(%rbp)</code>, <code>-8(%rbp)</code> etc. — lower addresses</li>
+          <li>If function <em>has returned</em>, its whole frame is gone — the stack pointer is back at caller's entry %rsp</li>
+          <li>S24 trap: diagram showed <code>mystery()</code>'s frame missing — correct, it had already returned!</li>
+        </ul>
+      </div>
+      <div class="card accent-purple">
+        <h3>Buffer Overflow Attack Math (S24)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Given a vulnerable function with a local buffer, calculate overflow payload size:</p>
+        <pre style="font-size:12px;">sub $0x20, %rsp        ← 32 bytes local space
+lea -0x20(%rbp), %rax  ← buffer starts 32B below %rbp
+movl $0, -0x4(%rbp)    ← 4B local int at -4(%rbp)
+
+Payload = buffer_size + saved_%rbp + return_addr
+        = 32 bytes   +  8 bytes   +  8 bytes  = 48</pre>
+        <p style="font-size:12.5px;margin-top:6px;color:var(--text-dim);">Note: stack frames must be 16-byte aligned, so padding may be needed. The exam answer was 44 because the buffer was at -0x20 from %rbp (32B) plus 4B to the saved %rbp = 36B to reach the return address, plus 8B for the address itself = 44.</p>
+      </div>
+    </div>
+
+    <!-- ── TOPIC 5: Assembly ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">⑤ Assembly Reverse-Engineering</h2>
+    </div>
+    <p style="font-size:14px;margin-bottom:10px;color:var(--text-dim);">Every exam asks you to reconstruct C from assembly. The standard approach:</p>
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Step-by-Step Method</h3>
+        <ol style="padding-left:16px;font-size:14px;line-height:1.9;">
+          <li>Identify arguments from stack comments or register use (<code>%edi</code>=arg1, <code>%rsi</code>=arg2, etc.)</li>
+          <li>Find all local vars by their stack offsets (<code>-4(%rbp)</code>, <code>-8(%rbp)</code>, etc.)</li>
+          <li>Find the loop: look for a backward branch (<code>jXX .L_earlier</code>)</li>
+          <li>Identify loop variable by what gets incremented and compared</li>
+          <li>Read loop body between the label and the conditional branch at the end</li>
+          <li>Work backwards from <code>ret</code>: what's in <code>%eax</code>/<code>%rax</code> just before it?</li>
+        </ol>
+      </div>
+      <div class="card accent-blue">
+        <h3>Key Assembly Patterns (all exams)</h3>
+        <table>
+          <tr><th>Assembly</th><th>C equivalent</th></tr>
+          <tr><td><code>cmpq $100, %rax; jle .L2</code></td><td><code>if (x &gt; 100)</code> — executes code before .L2</td></tr>
+          <tr><td><code>cmpl X, Y; jl .L</code></td><td><code>if (Y &lt; X)</code> — signed less-than</td></tr>
+          <tr><td><code>cltq</code></td><td>sign-extend 32-bit <code>%eax</code> to 64-bit <code>%rax</code></td></tr>
+          <tr><td><code>movl (%rax), %eax</code></td><td><code>x = *ptr</code> — dereference pointer</td></tr>
+          <tr><td><code>addq $4, %rdx</code> in a loop</td><td>pointer advancing through int array (<code>ptr++</code>)</td></tr>
+          <tr><td><code>jbe .L</code></td><td>unsigned below-or-equal (<code>&lt;=</code> unsigned)</td></tr>
+          <tr><td>branch target above the branch</td><td>it's a loop — look for the loop variable</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── TOPIC 6: Bitflags ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">⑥ Bitflags — Snake/Serpent Questions (S24, S25, F25)</h2>
+    </div>
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>What the Exam Tests</h3>
+        <ul>
+          <li>Flags must be <strong>powers of 2</strong> (each occupies exactly one bit) to be OR-combinable</li>
+          <li>If flags are 1,2,3,4 (not powers of 2) — bitwise tests break. <code>cell & FLAG_WALL</code> where <code>FLAG_WALL=3</code> would match any cell with bits 0 or 1 set</li>
+          <li>Testing "exactly snake AND food and nothing else": <code>cell == (FLAG_SNAKE | FLAG_FOOD)</code> = <code>cell == 0x05</code></li>
+          <li>Testing "has snake AND has food (may have other flags)": <code>(cell & FLAG_SNAKE) && (cell & FLAG_FOOD)</code></li>
+          <li>Moving into cell: use <code>|=</code> not <code>+=</code> — addition would corrupt if the bit was already set</li>
+          <li>XOR toggle (<code>^=</code>) is wrong for moving into a cell — would <em>remove</em> the flag if already set</li>
+        </ul>
+      </div>
+      <div class="card accent-purple">
+        <h3>Enum Pitfall (S24, S25)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Using sequential enum values (0,1,2,3,4) instead of bit flags breaks bitwise operations:</p>
+        <pre style="font-size:12px;"><span class="c">// WRONG: these are NOT bit flags</span>
+<span class="k">enum</span> { LAND=0, SNAKE=1, WATER=2, WALL=3, FOOD=4 }
+
+cell = SNAKE | WATER; <span class="c">// = 1 | 2 = 3 = WALL!</span>
+(cell & SNAKE) <span class="c">// = 3 & 1 = 1 ✓ but...</span>
+(cell & WALL)  <span class="c">// = 3 & 3 = 3 ✓ FALSE POSITIVE</span>
+
+<span class="c">// CORRECT: powers of 2</span>
+<span class="k">#define</span> FLAG_SNAKE 0b0001
+<span class="k">#define</span> FLAG_WATER 0b0010
+cell = FLAG_SNAKE | FLAG_WATER; <span class="c">// = 0b0011</span>
+(cell & FLAG_SNAKE) <span class="c">// = 1, truthy ✓</span>
+(cell & FLAG_WALL)  <span class="c">// = 0b0011 & 0b0100 = 0 ✓</span></pre>
+      </div>
+    </div>
+
+    <!-- ── TOPIC 7: Signed numbers / hexdump ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">⑦ Hexdump Reading &amp; Signed Number Interpretation</h2>
+    </div>
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Reading a Hexdump (S25 Q8, S24 Q1B)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Given a hexdump, reconstruct int values. Remember: <strong>little-endian</strong> — reverse each 4-byte group, then flip+add-1 if leading digit is 8–F.</p>
+        <pre style="font-size:12px;"><span class="c">// Full worked example (S25 Q8) — array of int:</span>
+0x4af45ab0: 0C 00 00 00  10 00 00 00  FC FF FF FF  FF FF FF FF
+0x4af45ac0: A1 00 00 00  FA FF FF FF  FF FF FF 7F  FF AB 02 00
+
+arr[0]: 0C 00 00 00 → <span class="s">12</span>      arr[4]: A1 00 00 00 → <span class="s">161</span>
+arr[1]: 10 00 00 00 → <span class="s">16</span>      arr[5]: FA FF FF FF → <span class="w">-6</span>
+arr[2]: FC FF FF FF → <span class="w">-4</span>      arr[6]: FF FF FF 7F → <span class="s">INT_MAX</span>
+arr[3]: FF FF FF FF → <span class="w">-1</span>      arr[7]: FF AB 02 00 → <span class="s">175,103</span>
+
+<span class="c">// Count: 8 ints total (32 bytes / 4 bytes each)</span>
+
+<span class="c">// arr[0] | arr[4]:  0x0C | 0xA1</span>
+<span class="c">// 0000_1100 | 1010_0001 = 1010_1101 = 0xAD = 173</span>
+
+<span class="c">// arr[0] + arr[6]:  12 + 2,147,483,647 → signed overflow → UB!</span>
+<span class="c">// arr[2] = -4 in decimal (FC FF FF FF → flip+1)</span>
+<span class="c">// arr[3] + arr[0]: -1 + 12 = 11 (no overflow)</span></pre>
+        <ul style="margin-top:6px;">
+          <li>Each pair of hex digits = 1 byte (1 digit = 4 bits = nibble)</li>
+          <li>Stack pointer near <code>0x7fff...</code>, heap near <code>0x1a0...</code> or <code>0x55a...</code></li>
+          <li>Many <code>00</code> bytes after a value = small positive int (leading zeros)</li>
+        </ul>
+      </div>
+      <div class="card accent-red">
+        <h3>Overflow Arithmetic — Exact Questions (F25, S23)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">The exam asks: does this expression overflow? If signed, is it UB?</p>
+        <pre style="font-size:12px;"><span class="c">// S23 examples:</span>
+add(1, 0xFFFF'FFFA)
+<span class="c">// = 1 + (-6) as signed = -5. NO overflow, no UB.</span>
+
+add(0x7FFF'FFAC, 0x64)
+<span class="c">// = INT_MAX-ish + 100. YES overflow → UB!</span>
+
+sub(300, 330)  <span class="c">// unsigned: 300-330 wraps. YES overflow, NO UB.</span>
+
+<span class="c">// F25: add(0xffff'fffe, ???) result 3</span>
+<span class="c">// 0xffff'fffe = -2 as signed int</span>
+<span class="c">// -2 + 5 = 3. Answer: add(0xffff'fffe, 5)</span></pre>
+        <p style="font-size:12.5px;margin-top:6px;color:var(--text-dim);">Key: <code>0xFFFF'FFFF</code> as signed int = -1. <code>0x8000'0000</code> = INT_MIN = -2147483648. <code>0x7FFF'FFFF</code> = INT_MAX.</p>
+      </div>
+    </div>
+
+    <!-- ── TOPIC 8: DMalloc ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">⑧ DMalloc Design Questions</h2>
+    </div>
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>What DMalloc Can and Cannot Detect</h3>
+        <table>
+          <tr><th>Error</th><th>Detectable?</th><th>Condition</th></tr>
+          <tr><td>Double free</td><td class="hi">Yes</td><td>Always — check freed flag in header</td></tr>
+          <tr><td>Invalid free (not in heap)</td><td class="hi">Yes</td><td>Check against heap_min/heap_max</td></tr>
+          <tr><td>Boundary write within ~8B of end</td><td class="hi">Yes</td><td>Canary bytes after payload</td></tr>
+          <tr><td>Boundary write far past end (e.g., 1000B over)</td><td class="re">Maybe not</td><td>Only detects within canary range (8B)</td></tr>
+          <tr><td>Boundary <em>read</em> outside allocation</td><td class="re">No</td><td>Can only detect <em>writes</em> via canary</td></tr>
+          <tr><td>Use-after-free</td><td class="re">No</td><td>DMalloc doesn't poison freed memory</td></tr>
+          <tr><td>Heap use-after-free</td><td class="re">No</td><td>Unless you use shadow memory (ASan)</td></tr>
+          <tr><td>Pointer-to-metadata trick</td><td class="hi">Yes</td><td>Internal metadata: canary corrupted if wrote past end of one block into next block's header</td></tr>
+        </table>
+      </div>
+      <div class="card accent-purple">
+        <h3>Pointer Arithmetic to/from Header (S25 Q5A)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Given <code>void* ptr</code> pointing to the payload, recover the header:</p>
+        <pre style="font-size:12px;"><span class="c">// Header is sizeof(metadata) bytes BEFORE ptr</span>
+<span class="c">// Must cast to char* first to do byte arithmetic!</span>
+
+<span class="c">// CORRECT:</span>
+<span class="k">struct</span> metadata* m = (<span class="k">struct</span> metadata*)((<span class="t">char*</span>)ptr - <span class="k">sizeof</span>(<span class="k">struct</span> metadata));
+<span class="c">// Also correct:</span>
+<span class="k">struct</span> metadata* m = ((<span class="k">struct</span> metadata*)ptr) - 1; <span class="c">// pointer arith: -1 × sizeof(metadata)</span>
+
+<span class="c">// WRONG — advances by sizeof(int) not sizeof(metadata):</span>
+<span class="k">struct</span> metadata* m = ((<span class="t">int*</span>)ptr) - <span class="k">sizeof</span>(<span class="t">int</span>);</pre>
+        <div class="alert warn" style="margin-top:8px;padding:10px 12px;font-size:12.5px;">
+          <span class="alert-icon">⚠</span>
+          <span>Pointer arithmetic scales by <code>sizeof(*ptr)</code>. <code>((struct metadata*)ptr) - 1</code> goes back exactly <code>sizeof(struct metadata)</code> bytes — correct. <code>ptr - 1</code> on a <code>void*</code> is illegal in C (undefined). Always cast to <code>char*</code> for raw byte arithmetic.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:14px;">
+      <div class="card accent-red">
+        <h3>Metadata Placement: Before vs After (S24 Q8B)</h3>
+        <ul>
+          <li>Standard: metadata <em>before</em> payload → boundary write past end corrupts <em>next block's header</em> (detectable)</li>
+          <li>Joel's design (S24): metadata <em>after</em> payload → boundary write past end corrupts <em>own metadata</em> → two failure cases: (1) write goes past the canary range entirely, (2) write corrupts only the <em>freed</em> flag, making freed appear as 0 (valid)</li>
+          <li>Key: if canary is <em>between</em> payload and metadata, a write that misses the canary but hits the freed flag can make a freed block look allocated</li>
+        </ul>
+      </div>
+      <div class="card accent-blue">
+        <h3>Canary Detection Math (F25 Q5A)</h3>
+        <p style="font-size:13.5px;margin-bottom:8px;">Given addresses of allocations and 8-byte canaries, determine if a write is detectable:</p>
+        <ul>
+          <li><code>a[65]</code> where a=64B → writes at byte 65 of payload, canary is at bytes 64–71. Byte 65 is within canary → <span style="color:var(--accent2)">detectable</span></li>
+          <li><code>*(b - 200)</code> → 200B before b's start = before the canary of the previous block's end → <span class="red">not detectable</span> by b's canary; may not align with a's canary either</li>
+          <li><code>*(b + 0x344)</code> = b + 836B; b is at 0x200, canary ends at 0x248 (64+8=72B total); 836 >> 72 → <span class="red">not detectable</span></li>
+          <li>Rule: canary only covers the 8 bytes immediately after the payload</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── TOPIC 9: Caching I/O ── -->
+    <div class="section-label" style="margin-top:32px;margin-bottom:12px;">
+      <h2 style="font-size:15px;">⑨ Caching I/O — Cache Hit Rate Questions</h2>
+    </div>
+    <div class="cards">
+      <div class="card accent-left">
+        <h3>Hit Rate by Access Pattern (S23 Q7B)</h3>
+        <table>
+          <tr><th>Program</th><th>Cache size</th><th>Hit rate</th><th>Why</th></tr>
+          <tr><td><code>byte_cat</code> 4MB</td><td>4096B</td><td class="hi">~99.97%</td><td>Sequential: 1 miss per 4096 bytes = 1/4096 miss rate</td></tr>
+          <tr><td><code>block_cat 512</code> 4MB</td><td>4096B</td><td class="hi">~87.5%</td><td>512B blocks: 1 miss then 7 hits per 4096B chunk</td></tr>
+          <tr><td><code>reverse_byte_cat</code> 4MB</td><td>4096B</td><td class="re">~0.02%</td><td>Each byte seek = new cache miss; going backward fetches from new position each time</td></tr>
+          <tr><td><code>stride_cat 1024 512</code> 1MB</td><td>4096B</td><td class="re">~0%</td><td>Stride 1024 > cache 4096/4 slots — each read misses; alternating between non-overlapping regions</td></tr>
+        </table>
+        <p style="font-size:12.5px;margin-top:8px;color:var(--text-dim)">Formula: hit rate = (cache_size - 1) / cache_size for sequential byte reads. One miss per cache-fill, rest are hits.</p>
+      </div>
+      <div class="card accent-purple">
+        <h3>Seek Strategy Tradeoffs (S24 Q5A, F25 Q6A)</h3>
+        <ul>
+          <li><strong>Kazuya (aligned blocks)</strong>: fetches fixed 64-byte aligned blocks. <code>reverse_byte_cat</code> seeks backward 1 byte at a time → each seek within same aligned block = <em>cache hit</em> (up to 64 consecutive seeks hit)</li>
+          <li><strong>Alex (seek-to-target)</strong>: fetches from exact seek position. <code>reverse_byte_cat</code> → each seek fetches 1 new block, immediately seeks past it → constant misses</li>
+          <li><strong>Cash (direction-aware)</strong>: pre-fetches in the direction of movement. <code>reverse_block_cat</code> = backward → fetches 8B before seek target → more hits for backward reads</li>
+          <li>Rule: <strong>aligned-block caching beats seek-to-target for reverse access</strong> because each backward step usually stays in the same block</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert tip">
+      <span class="alert-icon">💡</span>
+      <span><strong>Final self-test from past exams:</strong> (1) What segment is <code>char* errors[4]</code> inside a function? (2) <code>0xffff'fffe</code> as a signed int = ? (3) Why does <code>((struct metadata*)ptr) - 1</code> work to find the header? (4) Why do flags need to be powers of 2? (5) What's the hit rate for <code>reverse_byte_cat</code> with a 4096B cache? (6) Is <code>unsigned int x = UINT_MAX; x + 1;</code> UB? (7) Which frame holds the return address — caller or callee? (8) How large is the payload size computable from Joel's metadata map?</span>
+    </div>
+
+  </section>
+
+</div><!-- /container -->
+</body>
+</html>
