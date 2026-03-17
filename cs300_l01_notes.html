@@ -603,30 +603,54 @@ Hex:     8D<sub>16</sub>  = 8×16¹ + 13×16⁰ = 141<sub>10</sub>
       </tr>
     </table>
 
-    <!-- Memory map diagram -->
+    <!-- Memory map diagram — horizontal -->
     <div class="memmap">
       <div style="text-align:center;font-size:11px;color:var(--text-dim);margin-bottom:14px;">ADDRESS SPACE (low → high)</div>
-      <div class="row">
-        <span class="addr">~0x40'0000</span>
-        <span class="seg seg-text">Code / Text</span>
-        <span class="note">const globals, program instructions</span>
+
+      <!-- horizontal bar -->
+      <div style="display:flex;gap:0;align-items:stretch;width:100%;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto;width:90px;">
+          <span style="font-size:10px;color:var(--text-dim);font-family:var(--mono);">~0x40'0000</span>
+          <div style="background:#ece5f8;border:1px solid #c4a8e8;color:#5a20a0;padding:10px 6px;text-align:center;font-size:12px;font-family:var(--mono);font-weight:700;width:100%;flex:1;display:flex;align-items:center;justify-content:center;border-radius:4px;">Code /<br>Text</div>
+          <span style="font-size:10px;color:var(--text-dim);">const globals,<br>instructions</span>
+        </div>
+
+        <div style="display:flex;align-items:center;padding:0 6px;color:var(--text-dim);font-size:11px;">↔</div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto;width:90px;">
+          <span style="font-size:10px;color:var(--text-dim);font-family:var(--mono);">~0x60'0000</span>
+          <div style="background:#e0f0fa;border:1px solid #90cce0;color:#0b5a80;padding:10px 6px;text-align:center;font-size:12px;font-family:var(--mono);font-weight:700;width:100%;flex:1;display:flex;align-items:center;justify-content:center;border-radius:4px;">Data /<br>BSS</div>
+          <span style="font-size:10px;color:var(--text-dim);">modifiable<br>globals</span>
+        </div>
+
+        <div style="display:flex;align-items:center;padding:0 8px;color:var(--text-dim);font-size:10px;font-family:var(--mono);text-align:center;flex:1;flex-direction:column;justify-content:center;gap:4px;">
+          <span>↔ &nbsp;unmapped / reserved&nbsp; ↔</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto;width:100px;">
+          <span style="font-size:10px;color:var(--text-dim);font-family:var(--mono);">~0x1a0'0000</span>
+          <div style="background:#e6f4e0;border:1px solid #90c880;color:#1e5e14;padding:10px 6px;text-align:center;font-size:12px;font-family:var(--mono);font-weight:700;width:100%;flex:1;display:flex;align-items:center;justify-content:center;border-radius:4px;">Heap →<br><span style="font-size:10px;font-weight:400;">(grows up)</span></div>
+          <span style="font-size:10px;color:var(--text-dim);">malloc() / new<br>can fragment</span>
+        </div>
+
+        <div style="display:flex;align-items:center;padding:0 8px;color:var(--text-dim);font-size:10px;font-family:var(--mono);text-align:center;flex:1;flex-direction:column;justify-content:center;gap:4px;">
+          <span>↔ &nbsp;free space<br>(meet → OOM)&nbsp; ↔</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto;width:100px;">
+          <span style="font-size:10px;color:var(--text-dim);font-family:var(--mono);">~0x7fff…</span>
+          <div style="background:#fde8e8;border:1px solid #f0a0a0;color:#8b1a1a;padding:10px 6px;text-align:center;font-size:12px;font-family:var(--mono);font-weight:700;width:100%;flex:1;display:flex;align-items:center;justify-content:center;border-radius:4px;">← Stack<br><span style="font-size:10px;font-weight:400;">(grows down)</span></div>
+          <span style="font-size:10px;color:var(--text-dim);">local vars,<br>fn args, no holes</span>
+        </div>
       </div>
-      <div class="row">
-        <span class="addr">~0x60'0000</span>
-        <span class="seg seg-data">Data / BSS</span>
-        <span class="note">modifiable globals, zero-initialized globals</span>
-      </div>
-      <div class="gap">↕ &nbsp; unmapped / reserved &nbsp; ↕</div>
-      <div class="row">
-        <span class="addr">~0x1a0'0000</span>
-        <span class="seg seg-heap">Heap ↑</span>
-        <span class="note">malloc() / new — grows upward, can fragment</span>
-      </div>
-      <div class="gap">↕ &nbsp; free space (stack + heap grow toward each other) &nbsp; ↕</div>
-      <div class="row">
-        <span class="addr">~0x7fff…</span>
-        <span class="seg seg-stack">Stack ↓</span>
-        <span class="note">local vars, fn args — grows downward, no holes</span>
+
+      <!-- address arrow -->
+      <div style="display:flex;align-items:center;margin-top:10px;gap:4px;">
+        <span style="font-size:10px;color:var(--text-dim);font-family:var(--mono);">low addresses</span>
+        <div style="flex:1;height:1px;background:var(--border);position:relative;">
+          <span style="position:absolute;right:0;top:-5px;font-size:11px;color:var(--text-dim);">▶</span>
+        </div>
+        <span style="font-size:10px;color:var(--text-dim);font-family:var(--mono);">high addresses</span>
       </div>
     </div>
 
